@@ -1,0 +1,38 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: toygan sevim
+ * Date: 1/17/18
+ * Time: 9:47 PM
+ */
+
+//error reporting
+error_reporting(E_ALL);
+ini_set("display_errors",1);
+
+//define fat free
+
+require_once ('vendor/autoload.php');
+
+//create an instance of the base class
+$f3 = Base::instance();
+
+//define a default rote
+$f3->route('GET /', function (){
+
+    $view = new View;
+    echo $view->render('views/hello.html');
+
+});
+
+
+
+
+
+
+///fatfree enable error reporting
+$f3->set('DEBUG',3); // highest is 3 lowest 0;
+
+//run fat free
+$f3->run();
+
