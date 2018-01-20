@@ -17,17 +17,13 @@ require_once ('vendor/autoload.php');
 //create an instance of the base class
 $f3 = Base::instance();
 
-//define a default rote
+//define a default rote to render home.html
 $f3->route('GET /', function (){
 
-    $view = new View;
-    echo $view->render('views/hello.html');
+    $view = new View; //could be template too, ask
+    echo $view->render('pages/home.html');
 
 });
-
-
-
-
 
 
 ///fatfree enable error reporting

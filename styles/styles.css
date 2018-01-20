@@ -1,0 +1,22 @@
+/*
+Toygan Sevim
+styles.css
+This is a supporting css file for the home page home.html
+Jan 17 / 2018
+*/
+
+
+
+
+/*image display*/
+img.rounded {
+    width: 100%;
+    height: 100%;
+}
+
+/*paragraph text design*/
+p.mb-0 {
+    font-size: medium;
+}
+
+
