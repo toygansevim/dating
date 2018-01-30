@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: toygan sevim
+ * User: Toygan sevim
  * Date: 1/17/18
  * Time: 9:47 PM
  * This is the index page that starts fat free and defines a default route to our home.html page
@@ -23,6 +23,32 @@ $f3->route('GET /', function (){
     $view = new View; //could be template too, ask
     echo $view->render('pages/home.html');
 
+});
+
+//Define a default route
+$f3->route('GET /pages/@pageName', function ($f3, $params)
+{
+    switch ($params['pageName'])
+    {
+        case 'personal' :
+            echo Template::instance()->render('pages/personal_info.html');
+            break;
+
+        case 'profile' :
+            echo Template::instance()->render('pages/profile.php');
+            break;
+
+        case 'interest':
+            echo Template::instance()->render('pages/Interests.php');
+            break;
+
+        case 'results':
+            echo Template::instance()->render('pages/results.php');
+            break;
+
+        default:
+            $f3->error(404);
+    }
 });
 
 ///fatfree enable error reporting
