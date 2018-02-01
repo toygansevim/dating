@@ -5,7 +5,6 @@ This is a supporting css file for the home page home.html
 Jan 17 / 2018
 */
 
-
 /*image display*/
 img.rounded {
     width: 100%;
@@ -13,8 +12,20 @@ img.rounded {
 }
 
 /*paragraph text design*/
-p.mb-0 {
-    font-size: medium;
+.p.mb-0 {
+    font-size: small;
 }
+
+/*Navbar*/
+.navbar{
+    background-color: #f2f2f2;
+    color: gray;
+}
+
+/*Text box bg */
+.text-center
+ {
+    background-color: lightgray;
+ }
 
 

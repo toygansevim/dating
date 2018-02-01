@@ -9,4 +9,4 @@
  * input values to check and correct
  */
 
-echo "2";
+echo "3";
