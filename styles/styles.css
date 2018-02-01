@@ -23,7 +23,7 @@ img.rounded {
 }
 
 /*Text box bg */
-.text-center
+.text-center.rounded.border.border-secondary.px-2.py-2
  {
     background-color: lightgray;
  }

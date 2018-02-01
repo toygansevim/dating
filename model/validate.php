@@ -7,7 +7,7 @@
  */
 
 //define arrays
-global $errors;
+//global $errors;
 $errors = array();
 
 
@@ -20,15 +20,6 @@ $errors = array();
 function validString($str)
 {
     return !empty($str) && ctype_alpha($str);
-}
-
-if (!validString($fname)) {
-    $errors['fname'] = "Please enter a first name.";
-}
-
-if (!validString($lname))
-{
-    $errors['lname'] = "Please enter a last name.";
 }
 
 /**
@@ -102,6 +93,17 @@ function validIndoor($indoorActivities)
     return in_array($indoorActivities, $f3->get('indoorActivities'));
 }
 
+//checking name values
+if (!validString($fname)) {
+    $errors['fname'] = "Please enter a first name.";
+}
+
+if (!validString($lname))
+{
+    $errors['lname'] = "Please enter a last name.";
+}
+
+
 if (!validOutdoor($outdoorActivities))
 {
     $errors['outdoorActivities'] = "Please choose a valid outdoor activity for your profile.";
@@ -117,7 +119,7 @@ if(!isset($gender) && empty($gender))
     $errors['gender'] = "Please provide a gender binary selection.";
 }
 
-print_r($errors);
+//print_r($errors);
 
 //$success = true;
 $success = sizeof($errors) == 0;

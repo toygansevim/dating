@@ -36,8 +36,26 @@ $f3->set('indoorActivities', array("tv", "movies", "cooking", "board games", "pu
 $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
 {
 
+    echo print_r($_POST);
     require('model/validate.php');
 
+    if (isset($_POST['submit']))
+    {
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
+        $age = $_POST['age'];
+        $gender = $_POST['gender'];
+        $phone = $_POST['phone'];
+
+        //include('model/validate.php');
+
+        $f3->set('fname', $fname);
+        $f3->set('lname', $lname);
+        $f3->set('age', $age);
+        $f3->set('gender', $gender);
+        $f3->set('phone', $phone);
+
+    }
     //should i be checking the post here or not?
 
     //should I not have switch statements?
@@ -47,24 +65,6 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
         case 'personal' :
 
             //should i be checking these here or below or above?
-            if (isset($_POST['submit']))
-            {
-                $fname = $_POST['fname'];
-                $lname = $_POST['lname'];
-                $age = $_POST['age'];
-                $gender = $_POST['gender'];
-                $phone = $_POST['phone'];
-
-                include('model/validate.php');
-
-                $f3->set('fname', $fname);
-                $f3->set('lname', $lname);
-                $f3->set('age', $age);
-                $f3->set('gender', $gender);
-                $f3->set('phone', $phone);
-
-            }
-
 
             //include the validation
 

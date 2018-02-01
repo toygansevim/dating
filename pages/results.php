@@ -9,7 +9,13 @@
  * input values to check and correct
  */
 
-echo "3";
+session_start();
+error_reporting(E_ALL);
+ini_set("display_errors",TRUE);
+
+print_r($_POST);
+echo "<br>";
+print_r($_SESSION);
 ?>
 
 <!--Toygan Sevim

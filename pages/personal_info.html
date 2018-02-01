@@ -35,44 +35,49 @@ class.
             <h1>Personal Information</h1>
             <hr>
 
-            <form action="#" method="POST">
+            <form
+                    <check if="@success"
+                    action="./profile" method="POST">
                 <div class="row">
-
                     <!--Placed outside col-8 to lower privacy policy visually-->
                     <div class="col-12">
                         <label for="fname" class="form-label font-weight-bold mb-1">First
                             Name</label>
+                        <check if="{{@errors['fname']}}">
+                            <p class="text-danger">{{ @errors['fname'] }}</p>
+                        </check>
                     </div>
 
                     <!--Most inputs except phone number-->
                     <div class="col-8">
-
-                        <check if="{{@errors['fname']}}">
-                            <p class="text-danger">{{ @errors['fname'] }}</p>
-                        </check>
                         <!--First Name-->
                         <input class="form-control mb-2" type="text" value="{{@fname}}" name="fname"
-                               id="fname"
-                               minlength="1">
+                               id="fname">
 
                         <!--Last Nae-->
                         <label for="lname" class="form-label font-weight-bold mb-1">Last
                             Name</label>
                         <input class="form-control mb-2" type="text" value="" name="lname"
-                               id="lname"
-                               minlength="1">
+                               id="lname">
 
                         <!--Age-->
                         <label for="age" class="form-label font-weight-bold mb-1">Age</label>
+                        <check if="{{@errors['age']}}">
+                            <p class="text-danger my-1">{{@errors['age']}}</p>
+                        </check>
                         <input class="form-control mb-2" type="number" value="" name="age" id="age"
-                               min="18" max="101">
+                               max="101">
 
                         <label for="gender" class="form-label font-weight-bold mb-0">Gender</label><br>
+                        <check if="{{@errors['gender'] }}">
+                            <p class="text-danger">{{@errors['gender']}}</p>
+                        </check>
                         <!--Male-->
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input mr-2" type="radio"
-                                       name="gender" id="gender" value="">  Male
+                                       name="gender" id="gender" value=""
+                                <check if="{{@gender == @gender}}">checked</check>>Male
                             </label>
                         </div>
 
@@ -80,7 +85,8 @@ class.
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input mr-2" type="radio"
-                                       name="gender" value=""> Female
+                                       name="gender" value=""
+                                <check if="{{@gender == @gender}}">checked</check>> Female
                             </label>
                         </div>
 
@@ -99,8 +105,10 @@ class.
                     <div class="col-8">
                         <label for="phone" class="form-label font-weight-bold mb-1">Phone
                             Number</label>
-                        <input class="form-control" type="text" value="" id="phone" name="phone"
-                               required pattern="[0-9]{10}">
+                        <check if="{{@errors['phone']}}">
+                            <p class="text-danger">{{@errors['phone']}}</p>
+                        </check>
+                        <input class="form-control" type="text" value="{{@phone}}" id="phone" name="phone" pattern="[0-9]{10}">
                     </div> <!--div class="col-4"-->
 
 
