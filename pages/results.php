@@ -48,25 +48,25 @@ ini_set("display_errors", TRUE);
                     <table class="table table-bordered">
                         <tbody>
                         <tr class="">
-                            <td>Name: <?php echo "$fname"; ?></td>
+                            <td>Name: {{@fname}}</td>
                         </tr>
                         <tr>
-                            <td>Gender: <?php echo $_SESSION['gender'];?></td>
+                            <td>Gender: {{@gender}}</td>
                         </tr>
                         <tr>
-                            <td>Age: <?php echo $_SESSION['age']?></td>
+                            <td>Age: {{@age}}</td>
                         </tr>
                         <tr>
-                            <td>Phone: <?php echo $_SESSION['phone']?></td>
+                            <td>Phone: {{@phone}}</td>
                         </tr>
                         <tr>
-                            <td>Email: <?php echo $_SESSION['email']?></td>
+                            <td>Email: {{@email}}</td>
                         </tr>
                         <tr>
-                            <td>State: <?php echo $_SESSION['state']?></td>
+                            <td>State: {{@state}}</td>
                         </tr>
                         <tr>
-                            <td>Seeking: <?php echo $_SESSION['genderLook']?></td>
+                            <td>Seeking: {{@genderLook}}<td>
                         </tr>
                         <tr>
                             <td>Interests: </td>
@@ -81,7 +81,7 @@ ini_set("display_errors", TRUE);
                     <div class="container justify-content-center text-center">
                         <h3>Biography</h3>
                         <p>
-                            <?php echo $_SESSION['biography']?>
+                            {{@biography}}
                         </p>
                     </div>
                 </div>

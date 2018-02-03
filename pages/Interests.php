@@ -13,8 +13,6 @@ session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", TRUE);
 
-echo print_r($_SESSION);
-
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +28,6 @@ echo print_r($_SESSION);
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
-
 <!--main container-->
 <div class="container mx-auto px-0 ">
 
@@ -45,14 +42,13 @@ echo print_r($_SESSION);
             <!--            Heading-->
             <h1>Interests</h1>
             <hr>
-            <form action="#" method="post">
+            <form action="./results" method="post">
 
 
                 <!--Next button-->
                 <div class="col-12">
                     <div class="text-right">
-                        <input type="submit" value="Next >" name="submit"
-                               class="btn btn-primary">
+                        <input type="submit" value="Next >" name="submit" class="btn btn-primary">
                     </div>
                 </div>
                 <!--div FOR FORM GROUPS -->

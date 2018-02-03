@@ -153,18 +153,20 @@ $f3->route('GET|POST /pages/results', function ($f3)
 
     error_reporting(E_ALL);
     ini_set("display_errors", TRUE);
-    if (!empty($_SESSION))
-    {
-        $fname = $_SESSION['fname'];
-        $_SESSION['gender'] = $gender;
-        $_SESSION['age'] = $age;
-        $_SESSION['phone'] = $phone;
-        $_SESSION['email'] = $email;
-        $_SESSION['state'] = $state;
-        $_SESSION['genderLook'] = $genderLook;
-    }
-
     // echo print_r($_SESSION);
+    if(isset($_SESSION) && !empty($_SESSION))
+    {
+        $f3->set('fname',$_SESSION['fname']);
+        $f3->set('lname',$_SESSION['lname']);
+        $f3->set('gender',$_SESSION['gender']);
+        $f3->set('age',$_SESSION['age']);
+        $f3->set('phone',$_SESSION['phone']);
+        $f3->set('email',$_SESSION['email']);
+        $f3->set('state',$_SESSION['state']);
+        $f3->set('biography',$_SESSION['biography']);
+        $f3->set('genderLook',$_SESSION['genderLook']);
+
+    }
     echo Template::instance()->render("pages/results.php");
 
 });
