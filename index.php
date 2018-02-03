@@ -92,6 +92,11 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
             }
             break;
 
+
+        case 'interests':
+            echo Template::instance()->render('pages/Interests.php');
+            break;
+
         default:
             $f3->error(404);
     }
@@ -141,27 +146,6 @@ $f3->route('GET|POST /pages/profile',
 );
 //define a default rote to render home.html
 
-$f3->route('GET|POST /pages/interests',
-    function ($f3)
-    {
-
-        error_reporting(E_ALL);
-        ini_set("display_errors", TRUE);
-        if ($_SERVER['REQUEST_METHOD'] === 'POST')
-        {
-            if (isset($_POST['submit']))
-            {
-                $indoorActivities = $_POST['indoorActivities'];
-
-                $f3->set('indoorActivities', $indoorActivities);
-            }
-
-        } else if ($_SERVER['REQUEST_METHOD'] === 'GET')
-        {
-            echo Template::instance()->render("pages/interests.php");
-        }
-    });
-
 //define a default rote to render home.html
 $f3->route('GET|POST /pages/results', function ($f3)
 {
@@ -171,7 +155,7 @@ $f3->route('GET|POST /pages/results', function ($f3)
     ini_set("display_errors", TRUE);
     if (!empty($_SESSION))
     {
-        $fname =  $_SESSION['fname'];
+        $fname = $_SESSION['fname'];
         $_SESSION['gender'] = $gender;
         $_SESSION['age'] = $age;
         $_SESSION['phone'] = $phone;
@@ -190,4 +174,3 @@ $f3->set('DEBUG', 3); // highest is 3 lowest 0;
 
 //run fat free
 $f3->run();
-
