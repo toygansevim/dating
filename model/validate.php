@@ -7,11 +7,7 @@
  */
 
 //define arrays
-//global $errors;
 $errors = array();
-
-
-/*VALIDATE NAMES*/
 
 /**
  * @param $str
@@ -19,7 +15,17 @@ $errors = array();
  */
 function validString($str)
 {
-    return !empty($str) && ctype_alpha($str);
+    return !empty($str) && ctype_alpha($str) && !is_numeric($str);
+}
+
+/**
+ * @param $gender
+ * @return bool
+ */
+function validGender($gender)
+{
+    return isset($gender);
+
 }
 
 /**
@@ -28,26 +34,12 @@ function validString($str)
  */
 function validAge($age)
 {
-    global $errors;
 
-    //if not old enough let them know
-    if (!empty($age) && $age < 18)
-    {
-
-        $errors['age'] = "You must be older than 18 to apply!";
-        return false;
-    }
-    //valid criterias
     if (!empty($age) && is_numeric($age) && $age >= 18)
     {
         return true;
-    } //invalid, pass the error message
-    else
-    {
-        $errors['age'] = "Please enter a valid age.";
-        return false;
     }
-
+    return false;
 }
 
 /**
@@ -57,15 +49,12 @@ function validAge($age)
  */
 function validPhone($phone)
 {
-    global $errors;
-
     //are there 11 numbers? no nothing else
-    if (!empty($phone) && is_numeric($phone) && sizeof($phone) == 11)
+    if (!empty($phone) && is_numeric($phone))
     {
         return true;
     } else
     {
-        $errors['phone'] = "Please enter a valid phone number without anything else. Ex: 1231231122";
         return false;
     }
 
@@ -94,7 +83,8 @@ function validIndoor($indoorActivities)
 }
 
 //checking name values
-if (!validString($fname)) {
+if (!validString($fname))
+{
     $errors['fname'] = "Please enter a first name.";
 }
 
@@ -102,7 +92,6 @@ if (!validString($lname))
 {
     $errors['lname'] = "Please enter a last name.";
 }
-
 
 if (!validOutdoor($outdoorActivities))
 {
@@ -112,15 +101,22 @@ if (!validOutdoor($indoorActivities))
 {
     $errors['indoorActivities'] = "Please choose a valid indoor activities for your profile.";
 }
+if (!validPhone($phone))
+{
+    $errors['phone'] = "Please enter a valid phone number without anything else. Ex: 1231231122";
+}
 
+if (!validAge($age))
+{
+    $errors['age'] = "You must have a valid and eligible age to date.";
+}
 //gender validation check
-if(!isset($gender) && empty($gender))
+if (!validGender($gender))
 {
     $errors['gender'] = "Please provide a gender binary selection.";
 }
 
-//print_r($errors);
-
+echo print_r($errors);
 //$success = true;
 $success = sizeof($errors) == 0;
 

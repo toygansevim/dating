@@ -16,6 +16,11 @@ img.rounded {
     font-size: small;
 }
 
+#userImage{
+    width: 100% !important;
+    height: 50% !important;
+}
+
 /*Navbar*/
 .navbar{
     background-color: #f2f2f2;
@@ -28,4 +33,7 @@ img.rounded {
     background-color: lightgray;
  }
 
-
+td{
+    padding-bottom: 3rem !important;
+    padding-top: 3rem !important;
+}

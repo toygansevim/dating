@@ -35,9 +35,7 @@ class.
             <h1>Personal Information</h1>
             <hr>
 
-            <form
-                    <check if="@success"
-                    action="./profile" method="POST">
+            <form action="#" method="post">
                 <div class="row">
                     <!--Placed outside col-8 to lower privacy policy visually-->
                     <div class="col-12">
@@ -57,7 +55,12 @@ class.
                         <!--Last Nae-->
                         <label for="lname" class="form-label font-weight-bold mb-1">Last
                             Name</label>
-                        <input class="form-control mb-2" type="text" value="" name="lname"
+
+                        <check if="{{@errors['lname']}}">
+                            <p class="text-danger">{{ @errors['lname'] }}</p>
+                        </check>
+
+                        <input class="form-control mb-2" type="text" value="{{@lname}}" name="lname"
                                id="lname">
 
                         <!--Age-->
@@ -65,7 +68,7 @@ class.
                         <check if="{{@errors['age']}}">
                             <p class="text-danger my-1">{{@errors['age']}}</p>
                         </check>
-                        <input class="form-control mb-2" type="number" value="" name="age" id="age"
+                        <input class="form-control mb-2" type="number" value="{{@age}}" name="age" id="age"
                                max="101">
 
                         <label for="gender" class="form-label font-weight-bold mb-0">Gender</label><br>
@@ -76,8 +79,9 @@ class.
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input mr-2" type="radio"
-                                       name="gender" id="gender" value=""
-                                <check if="{{@gender == @gender}}">checked</check>>Male
+                                       name="gender" id="gender" value="male"
+                                <check if="{{@gender == 'male'}}">checked</check>
+                                >Male
                             </label>
                         </div>
 
@@ -85,8 +89,9 @@ class.
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input mr-2" type="radio"
-                                       name="gender" value=""
-                                <check if="{{@gender == @gender}}">checked</check>> Female
+                                       name="gender" value="female"
+                                <check if="{{@gender == 'female'}}">checked</check>
+                                > Female
                             </label>
                         </div>
 
@@ -108,9 +113,9 @@ class.
                         <check if="{{@errors['phone']}}">
                             <p class="text-danger">{{@errors['phone']}}</p>
                         </check>
-                        <input class="form-control" type="text" value="{{@phone}}" id="phone" name="phone" pattern="[0-9]{10}">
+                        <input class="form-control" type="text" value="{{@phone}}" id="phone" name="phone"
+                               pattern="[0-9]{10}">
                     </div> <!--div class="col-4"-->
-
 
                     <!--Submit Button-->
                     <div class="col-4">

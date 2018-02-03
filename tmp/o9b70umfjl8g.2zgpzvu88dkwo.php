@@ -35,44 +35,53 @@ class.
             <h1>Personal Information</h1>
             <hr>
 
-            <form action="#" method="POST">
+            <form action="#" method="post">
                 <div class="row">
-
                     <!--Placed outside col-8 to lower privacy policy visually-->
                     <div class="col-12">
                         <label for="fname" class="form-label font-weight-bold mb-1">First
                             Name</label>
+                        <?php if ($errors['fname']): ?>
+                            <p class="text-danger"><?= ($errors['fname']) ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <!--Most inputs except phone number-->
                     <div class="col-8">
-
-                        <?php if ($errors['fname']): ?>
-                            <p class="text-danger"><?= ($errors['fname']) ?></p>
-                        <?php endif; ?>
                         <!--First Name-->
                         <input class="form-control mb-2" type="text" value="<?= ($fname) ?>" name="fname"
-                               id="fname"
-                               minlength="1">
+                               id="fname">
 
                         <!--Last Nae-->
                         <label for="lname" class="form-label font-weight-bold mb-1">Last
                             Name</label>
-                        <input class="form-control mb-2" type="text" value="" name="lname"
-                               id="lname"
-                               minlength="1">
+
+                        <?php if ($errors['lname']): ?>
+                            <p class="text-danger"><?= ($errors['lname']) ?></p>
+                        <?php endif; ?>
+
+                        <input class="form-control mb-2" type="text" value="<?= ($lname) ?>" name="lname"
+                               id="lname">
 
                         <!--Age-->
                         <label for="age" class="form-label font-weight-bold mb-1">Age</label>
-                        <input class="form-control mb-2" type="number" value="" name="age" id="age"
-                               min="18" max="101">
+                        <?php if ($errors['age']): ?>
+                            <p class="text-danger my-1"><?= ($errors['age']) ?></p>
+                        <?php endif; ?>
+                        <input class="form-control mb-2" type="number" value="<?= ($age) ?>" name="age" id="age"
+                               max="101">
 
                         <label for="gender" class="form-label font-weight-bold mb-0">Gender</label><br>
+                        <?php if ($errors['gender']): ?>
+                            <p class="text-danger"><?= ($errors['gender']) ?></p>
+                        <?php endif; ?>
                         <!--Male-->
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input mr-2" type="radio"
-                                       name="gender" id="gender" value="">  Male
+                                       name="gender" id="gender" value="male"
+                                <?php if ($gender == 'male'): ?>checked<?php endif; ?>
+                                >Male
                             </label>
                         </div>
 
@@ -80,7 +89,9 @@ class.
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input mr-2" type="radio"
-                                       name="gender" value=""> Female
+                                       name="gender" value="female"
+                                <?php if ($gender == 'female'): ?>checked<?php endif; ?>
+                                > Female
                             </label>
                         </div>
 
@@ -99,10 +110,12 @@ class.
                     <div class="col-8">
                         <label for="phone" class="form-label font-weight-bold mb-1">Phone
                             Number</label>
-                        <input class="form-control" type="text" value="" id="phone" name="phone"
-                               required pattern="[0-9]{10}">
+                        <?php if ($errors['phone']): ?>
+                            <p class="text-danger"><?= ($errors['phone']) ?></p>
+                        <?php endif; ?>
+                        <input class="form-control" type="text" value="<?= ($phone) ?>" id="phone" name="phone"
+                               pattern="[0-9]{10}">
                     </div> <!--div class="col-4"-->
-
 
                     <!--Submit Button-->
                     <div class="col-4">

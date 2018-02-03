@@ -10,27 +10,9 @@
  */
 
 session_start();
-
-echo "1";
-
 error_reporting(E_ALL);
 ini_set("display_errors", TRUE);
-
-echo print_r($_POST);
-
-//check post values and if there are values assign to session
-if (isset($_POST['submit']) && !empty($_POST['fname'])
-    && !empty($_POST['lname']) && !empty($_POST['age'])
-    && !empty($_POST['gender']) && !empty($_POST['phone']))
-{
-    $_SESSION['fname'] = $_POST['fname'];
-    $_SESSION['lname'] = $_POST['lname'];
-    $_SESSION['age'] = $_POST['age'];
-    $_SESSION['gender'] = $_POST['gender'];
-    $_SESSION['phone'] = $_POST['phone'];
-}
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -58,34 +40,46 @@ if (isset($_POST['submit']) && !empty($_POST['fname'])
             <div class="card-block">
                 <h2>Profile</h2>
                 <hr>
-                <form action="./interests" method="post">
+                <form action="#" method="post">
                     <div class="row h-100">
-                        <div class="col-md-6 justify-content-start" id="formInfo">
+                        <div class="col-md-6 justify-content-start">
                             <div class="form-group">
-                                <label for="inputEmail" class="font-weight-bold">Email</label>
-                                <input type="email" class="form-control" name="inputEmail"
-                                       id="inputEmail" aria-describedby="email"
+                                <?php
+                                echo "<h1>TOYGAN</h1><br>";
+                                echo print_r($_SESSION);
+
+                                ?>
+                                <label for="email" class="font-weight-bold">Email</label>
+                                <check if="{{@errorsProfileProfile['email']}}">
+                                    <p class="text-danger">{{@errorsProfile['email']}}</p>
+                                </check>
+                                <input type="email" class="form-control" name="email"
+                                       id="email" aria-describedby="email"
                                        placeholder="Enter Email">
                             </div>
                             <div class="form-group">
-                                <label for="inputState" class="font-weight-bold">State</label>
+                                <label for="state" class="font-weight-bold">State</label>
+                                <check if="{{@errorsProfile['state']}}">
+                                    <p class="text-danger">{{@errorsProfile['state']}}</p>
+                                </check>
+
                                 <select class="form-control mb-0"
-                                        name="inputState" id="inputState">
+                                        name="state" id="state">
                                     <option value="WASHINGTON">WASHINGTON</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="gender"
+                                <label for="genderLook"
                                        class="form-label font-weight-bold mb-0">Gender</label><br>
-                                <check if="{{@errors['gender'] }}">
-                                    <p class="text-danger">{{@errors['gender']}}</p>
+                                <check if="{{@errorsProfile['genderLook'] }}">
+                                    <p class="text-danger">{{@errorsProfile['genderLook']}}</p>
                                 </check>
                                 <!--Male-->
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
                                         <input class="form-check-input mr-2" type="radio"
-                                               name="gender" id="gender" value=""
-                                        <check if="{{@gender == @gender}}">checked</check>
+                                               name="genderLook" id="genderLook" value="male"
+                                        <check if="{{@genderLook == 'male'}}">checked</check>
                                         >Male
                                     </label>
                                 </div>
@@ -94,8 +88,8 @@ if (isset($_POST['submit']) && !empty($_POST['fname'])
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
                                         <input class="form-check-input mr-2" type="radio"
-                                               name="gender" value=""
-                                        <check if="{{@gender == @gender}}">checked</check>
+                                               name="genderLook" value="female"
+                                        <check if="{{@genderLook == 'female'}}">checked</check>
                                         > Female
                                     </label>
                                 </div>
@@ -104,14 +98,16 @@ if (isset($_POST['submit']) && !empty($_POST['fname'])
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="inputBiography"
-                                       class="font-weight-bold ">Biography</label>
-                                <textarea class="form-control" name="inputBiography"
-                                          id="inputBiography" rows="7"></textarea>
+                                <label for="biography"
+                                       class="font-weight-bold">Biography</label>
+                                <check if="{{@errorsProfile['biography']}}">
+                                    <p class="text-danger">{{@errorsProfile['biography']}}</p>
+                                </check>
+                                <textarea class="form-control" name="biography"
+                                          id="biography" rows="7"></textarea>
                             </div>
                             <div class="d-flex align-items-end justify-content-end w-100">
-                                <button class="btn btn-primary" name="submit" id="submit">Next
-                                    &gt;
+                                <button class="btn btn-primary" name="submit" id="submit">Next &gt;
                                 </button>
                             </div>
                         </div>
