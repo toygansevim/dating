@@ -42,11 +42,6 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
     switch ($params['pageName'])
     {
         case 'personal' :
-
-            //should i be checking these here or below or above?
-
-            //include the validation
-
             //if it is a post method request
             if ($_SERVER['REQUEST_METHOD'] === 'POST')
             {
@@ -95,7 +90,6 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
             {
                 echo Template::instance()->render("pages/personal_info.html");
             }
-
             break;
 
         default:
@@ -107,10 +101,7 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
 $f3->route('GET|POST /pages/profile',
     function ($f3)
     {
-        echo "<br>TOYGAN<br>";
-        echo print_r($_SESSION);
-        echo print_r($_POST);
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             if (isset($_POST['submit']))
             {
@@ -119,34 +110,77 @@ $f3->route('GET|POST /pages/profile',
                 $genderLook = $_POST['$genderLook'];
                 $biography = $_POST['biography'];
 
-                include('model/validateProfile.php');
-
                 $f3->set('errorsProfile', $errorsProfile);
 
-                $f3->set('email', $email);
-                $f3->set('state', $state);
-                $f3->set('genderLook', $genderLook);
-                $f3->set('biography', $biography);
+                include('model/validateProfile.php');
+
+                echo print_r($errorsProfile);
+                echo sizeof($errorsProfile);
+                if (sizeof($errorsProfile) > 2)
+                {
+                    $f3->set('email', $email);
+                    $f3->set('state', $state);
+                    $f3->set('genderLook', $genderLook);
+                    $f3->set('biography', $biography);
+                } else
+                {
+                    $_SESSION['email'] = $email;
+                    $_SESSION['state'] = $state;
+                    $_SESSION['genderLook'] = $genderLook;
+                    $_SESSION['biography'] = $biography;
+
+                    $f3->reroute('/pages/interests');
+                }
             }
-        } else
+        } else if ($_SERVER['REQUEST_METHOD'] === 'GET')
         {
             echo Template::instance()->render('pages/profile.php');
-
         }
     }
 
 );
 //define a default rote to render home.html
 
-$f3->route('GET|POST /pages/interests', function ()
-{
-    echo Template::instance()->render("pages/interests.php");
-});
+$f3->route('GET|POST /pages/interests',
+    function ($f3)
+    {
+
+        error_reporting(E_ALL);
+        ini_set("display_errors", TRUE);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
+        {
+            if (isset($_POST['submit']))
+            {
+                $indoorActivities = $_POST['indoorActivities'];
+
+                $f3->set('indoorActivities', $indoorActivities);
+            }
+
+        } else if ($_SERVER['REQUEST_METHOD'] === 'GET')
+        {
+            echo Template::instance()->render("pages/interests.php");
+        }
+    });
 
 //define a default rote to render home.html
 $f3->route('GET|POST /pages/results', function ($f3)
 {
+    echo print_r($_SESSION);
 
+    error_reporting(E_ALL);
+    ini_set("display_errors", TRUE);
+    if (!empty($_SESSION))
+    {
+        $fname =  $_SESSION['fname'];
+        $_SESSION['gender'] = $gender;
+        $_SESSION['age'] = $age;
+        $_SESSION['phone'] = $phone;
+        $_SESSION['email'] = $email;
+        $_SESSION['state'] = $state;
+        $_SESSION['genderLook'] = $genderLook;
+    }
+
+    // echo print_r($_SESSION);
     echo Template::instance()->render("pages/results.php");
 
 });

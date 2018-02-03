@@ -40,17 +40,13 @@ ini_set("display_errors", TRUE);
             <div class="card-block">
                 <h2>Profile</h2>
                 <hr>
-                <form action="#" method="post">
+                <form action="" method="post">
                     <div class="row h-100">
                         <div class="col-md-6 justify-content-start">
                             <div class="form-group">
-                                <?php
-                                echo "<h1>TOYGAN</h1><br>";
-                                echo print_r($_SESSION);
 
-                                ?>
                                 <label for="email" class="font-weight-bold">Email</label>
-                                <check if="{{@errorsProfileProfile['email']}}">
+                                <check if="{{@errorsProfile['email']}}">
                                     <p class="text-danger">{{@errorsProfile['email']}}</p>
                                 </check>
                                 <input type="email" class="form-control" name="email"
@@ -113,6 +109,7 @@ ini_set("display_errors", TRUE);
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

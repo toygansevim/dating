@@ -115,8 +115,5 @@ if (!validGender($gender))
 {
     $errors['gender'] = "Please provide a gender binary selection.";
 }
-
-echo print_r($errors);
-//$success = true;
 $success = sizeof($errors) == 0;
 

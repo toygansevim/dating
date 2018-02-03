@@ -35,7 +35,6 @@ ini_set("display_errors", TRUE);
 </head>
 <body>
 
-
 <!--Navbar-->
 <nav class="navbar navbar-light border border-left-0 border-right-0 border-top-0 mb-2">
     <h1 class="navbar-brand mb-0">My Dating Website</h1>
@@ -45,35 +44,32 @@ ini_set("display_errors", TRUE);
         <div class="card-block mx-4 my-3">
             <div class="row">
                 <div class="col-md-6 justify-content-start ">
-                    <?php
-                    echo "<br><br>";
-                    echo print_r($_SESSION);
-                    ?>
+
                     <table class="table table-bordered">
                         <tbody>
                         <tr class="">
-                            <td>Name: <?php (isset($_SESSION['fname']) ? $_SESSION['fname'] : "guest")?></td>
+                            <td>Name: <?php echo "$fname"; ?></td>
                         </tr>
                         <tr>
-                            <td>Gender:</td>
+                            <td>Gender: <?php echo $_SESSION['gender'];?></td>
                         </tr>
                         <tr>
-                            <td>Age:</td>
+                            <td>Age: <?php echo $_SESSION['age']?></td>
                         </tr>
                         <tr>
-                            <td>Phone:</td>
+                            <td>Phone: <?php echo $_SESSION['phone']?></td>
                         </tr>
                         <tr>
-                            <td>Email:</td>
+                            <td>Email: <?php echo $_SESSION['email']?></td>
                         </tr>
                         <tr>
-                            <td>State:</td>
+                            <td>State: <?php echo $_SESSION['state']?></td>
                         </tr>
                         <tr>
-                            <td>Seeking:</td>
+                            <td>Seeking: <?php echo $_SESSION['genderLook']?></td>
                         </tr>
                         <tr>
-                            <td>Interests:</td>
+                            <td>Interests: </td>
                         </tr>
                         </tbody>
                     </table>
@@ -85,17 +81,7 @@ ini_set("display_errors", TRUE);
                     <div class="container justify-content-center text-center">
                         <h3>Biography</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tempor
-                            dapibus diam eget aliquam. Mauris eget tellus sit amet neque faucibus
-                            ultrices eu et ante. Integer tincidunt eget nisl at volutpat. Nunc
-                            maximus dolor sit amet quam efficitur lacinia. Nullam fringilla
-                            dignissim tempor. Maecenas purus dolor, tempus vitae scelerisque nec,
-                            pretium quis odio. Mauris commodo ultrices urna sed tempor. Fusce sit
-                            amet lorem vehicula, auctor mi in, maximus eros. Nam egestas elit eu sem
-                            scelerisque volutpat. Etiam ut dui vel tellus consequat rhoncus. Cras
-                            lacinia nibh vel purus feugiat, eget egestas felis sodales. Phasellus
-                            semper ligula non aliquet pretium. Morbi dictum in ligula finibus
-                            bibendum.
+                            <?php echo $_SESSION['biography']?>
                         </p>
                     </div>
                 </div>

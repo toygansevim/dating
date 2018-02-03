@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 /**
  * Created by PhpStorm.
  * User:Toygan Sevim
@@ -8,24 +10,11 @@
  * This is a interests file that allow's the user to view the option's of
  * activities and choose their favorites*/
 
-session_start();
-
 error_reporting(E_ALL);
 ini_set("display_errors", TRUE);
 
-print_r($_POST);
+echo print_r($_SESSION);
 
-//check post values and if there are values assign to session
-if (isset($_POST['submit']) && !empty($_POST['fname'])
-    && !empty($_POST['lname']) && !empty($_POST['age'])
-    && !empty($_POST['gender']) && !empty($_POST['phone']))
-{
-    $_SESSION['fname'] = $_POST['fname'];
-    $_SESSION['lname'] = $_POST['lname'];
-    $_SESSION['age'] = $_POST['age'];
-    $_SESSION['gender'] = $_POST['gender'];
-    $_SESSION['phone'] = $_POST['phone'];
-}
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +31,6 @@ if (isset($_POST['submit']) && !empty($_POST['fname'])
 </head>
 <body>
 
-
 <!--main container-->
 <div class="container mx-auto px-0 ">
 
@@ -57,133 +45,8 @@ if (isset($_POST['submit']) && !empty($_POST['fname'])
             <!--            Heading-->
             <h1>Interests</h1>
             <hr>
-            <form action="./results" method="POST">
-                <!-- INDOOR INTERESTS-->
-                <div class="form-group">
-                    <label>Indoor Interests</label>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="tv">
-                                <label class="form-check-label" for="tv">
-                                    tv
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="puzzles">
-                                <label class="form-check-label" for="puzzles">
-                                    puzzles
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="movies">
-                                <label class="form-check-label" for="movies">
-                                    movies
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="reading">
-                                <label class="form-check-label" for="reading">
-                                    reading
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="cooking">
-                                <label class="form-check-label" for="cooking">
-                                    cooking
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="playingCards">
-                                <label class="form-check-label" for="playingCards">
-                                    playing cards
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="boardGames">
-                                <label class="form-check-label" for="boardGames">
-                                    board games
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="videoGames">
-                                <label class="form-check-label" for="video games">
-                                    video games
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <form action="#" method="post">
 
-                <!--OutDOOR INTERESTS-->
-                <div class="form-group">
-                    <label>Out-door Interests</label>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="hiking">
-                                <label class="form-check-label" for="hiking">
-                                    hiking
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="walking">
-                                <label class="form-check-label" for="walking">
-                                    walking
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="biking">
-                                <label class="form-check-label" for="biking">
-                                    biking
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="climbing">
-                                <label class="form-check-label" for="climbing">
-                                    climbing
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="swimming">
-                                <label class="form-check-label" for="swimming">
-                                    swimming
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="collecting">
-                                <label class="form-check-label" for="collecting">
-                                    collecting
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!--Next button-->
                 <div class="col-12">
