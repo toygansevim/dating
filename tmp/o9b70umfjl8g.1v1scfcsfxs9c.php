@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
-
-
 <!--main container-->
 <div class="container mx-auto px-0 ">
 
@@ -29,139 +27,39 @@
             <!--            Heading-->
             <h1>Interests</h1>
             <hr>
-            <form action="./results" method="POST">
-                <!-- INDOOR INTERESTS-->
-                <div class="form-group">
-                    <label>Indoor Interests</label>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="tv">
-                                <label class="form-check-label" for="tv">
-                                    tv
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="puzzles">
-                                <label class="form-check-label" for="puzzles">
-                                    puzzles
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="movies">
-                                <label class="form-check-label" for="movies">
-                                    movies
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="reading">
-                                <label class="form-check-label" for="reading">
-                                    reading
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="cooking">
-                                <label class="form-check-label" for="cooking">
-                                    cooking
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="playingCards">
-                                <label class="form-check-label" for="playingCards">
-                                    playing cards
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="boardGames">
-                                <label class="form-check-label" for="boardGames">
-                                    board games
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="videoGames">
-                                <label class="form-check-label" for="video games">
-                                    video games
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--OutDOOR INTERESTS-->
-                <div class="form-group">
-                    <label>Out-door Interests</label>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="hiking">
-                                <label class="form-check-label" for="hiking">
-                                    hiking
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="walking">
-                                <label class="form-check-label" for="walking">
-                                    walking
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="biking">
-                                <label class="form-check-label" for="biking">
-                                    biking
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="climbing">
-                                <label class="form-check-label" for="climbing">
-                                    climbing
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="swimming">
-                                <label class="form-check-label" for="swimming">
-                                    swimming
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value=""
-                                       id="collecting">
-                                <label class="form-check-label" for="collecting">
-                                    collecting
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Next button-->
+            <form action="" method="post">
                 <div class="col-12">
+                    <?php if ($errors['indoorActivities'] || $errors['outdoorActivities']): ?>
+                        <p class="text-danger">Please enter Interest Options</p>
+                    <?php endif; ?>
+
+                    <h5>In-door Interests</h5>
+                    <?php foreach (($indoorActivities?:[]) as $key=>$value): ?>
+                        <label class="custom-control custom-checkbox col-3 float-left">
+                            <input type="checkbox" name="indoorActivities[]"
+                                   value="<?= ($value) ?>"
+
+                            > <span class="pl-1"><?= ($value) ?></span>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                <br>
+
+                <div class="col-12 mt-5">
+                    <h5>Out-door Interests</h5>
+                    <?php foreach (($outdoorActivities?:[]) as $key=>$value): ?>
+                        <label class="custom-control custom-checkbox col-3 float-left">
+                            <input type="checkbox" name="outdoorActivities[]"
+                                   value="<?= ($value) ?>"
+
+                            > <span class="pl-1"><?= ($value) ?></span>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                <!--Next button-->
+                <div class="">
                     <div class="text-right">
-                        <input type="submit" value="Next >" name="submit"
-                               class="btn btn-primary">
+                        <input type="submit" value="Next >" name="submit" class="btn btn-primary">
                     </div>
                 </div>
                 <!--div FOR FORM GROUPS -->

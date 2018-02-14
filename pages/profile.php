@@ -50,7 +50,7 @@ ini_set("display_errors", TRUE);
                                     <p class="text-danger">{{@errorsProfile['email']}}</p>
                                 </check>
                                 <input type="email" class="form-control" name="email"
-                                       id="email" aria-describedby="email"
+                                       id="email" value="{{@email}}" aria-describedby="email"
                                        placeholder="Enter Email">
                             </div>
                             <div class="form-group">
@@ -66,7 +66,7 @@ ini_set("display_errors", TRUE);
                             </div>
                             <div class="form-group">
                                 <label for="genderLook"
-                                       class="form-label font-weight-bold mb-0">Gender</label><br>
+                                       class="form-label font-weight-bold mb-0">Seeking</label><br>
                                 <check if="{{@errorsProfile['genderLook'] }}">
                                     <p class="text-danger">{{@errorsProfile['genderLook']}}</p>
                                 </check>
@@ -99,8 +99,9 @@ ini_set("display_errors", TRUE);
                                 <check if="{{@errorsProfile['biography']}}">
                                     <p class="text-danger">{{@errorsProfile['biography']}}</p>
                                 </check>
-                                <textarea class="form-control" name="biography"
-                                          id="biography" rows="7"></textarea>
+                                <textarea class="form-control"
+                                          name="biography"
+                                          id="biography" rows="7">{{@biography}}</textarea>
                             </div>
                             <div class="d-flex align-items-end justify-content-end w-100">
                                 <button class="btn btn-primary" name="submit" id="submit">Next &gt;
@@ -108,7 +109,6 @@ ini_set("display_errors", TRUE);
                             </div>
                         </div>
                     </div>
-                </form>
 
             </div>
         </div>

@@ -26,17 +26,17 @@
             <div class="card-block">
                 <h2>Profile</h2>
                 <hr>
-                <form action="#" method="post">
+                <form action="" method="post">
                     <div class="row h-100">
                         <div class="col-md-6 justify-content-start">
                             <div class="form-group">
 
                                 <label for="email" class="font-weight-bold">Email</label>
-                                <?php if ($errorsProfileProfile['email']): ?>
+                                <?php if ($errorsProfile['email']): ?>
                                     <p class="text-danger"><?= ($errorsProfile['email']) ?></p>
                                 <?php endif; ?>
                                 <input type="email" class="form-control" name="email"
-                                       id="email" aria-describedby="email"
+                                       id="email" value="<?= ($email) ?>" aria-describedby="email"
                                        placeholder="Enter Email">
                             </div>
                             <div class="form-group">
@@ -52,7 +52,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="genderLook"
-                                       class="form-label font-weight-bold mb-0">Gender</label><br>
+                                       class="form-label font-weight-bold mb-0">Seeking</label><br>
                                 <?php if ($errorsProfile['genderLook']): ?>
                                     <p class="text-danger"><?= ($errorsProfile['genderLook']) ?></p>
                                 <?php endif; ?>
@@ -85,8 +85,9 @@
                                 <?php if ($errorsProfile['biography']): ?>
                                     <p class="text-danger"><?= ($errorsProfile['biography']) ?></p>
                                 <?php endif; ?>
-                                <textarea class="form-control" name="biography"
-                                          id="biography" rows="7"></textarea>
+                                <textarea class="form-control"
+                                          name="biography"
+                                          id="biography" rows="7"><?= ($biography) ?></textarea>
                             </div>
                             <div class="d-flex align-items-end justify-content-end w-100">
                                 <button class="btn btn-primary" name="submit" id="submit">Next &gt;
@@ -94,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+
             </div>
         </div>
     </div>

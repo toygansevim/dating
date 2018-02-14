@@ -9,6 +9,9 @@
 //define arrays
 $errors = array();
 
+$outdoorActivities = $f3->get('outdoorActivities');
+$indoorActivities = $f3->get('indoorActivities');
+
 /**
  * @param $str
  * @return bool
@@ -57,7 +60,6 @@ function validPhone($phone)
     {
         return false;
     }
-
 }
 
 /**
@@ -66,21 +68,46 @@ function validPhone($phone)
  * @param $outdoorActivities
  * @return bool
  */
-function validOutdoor($outdoorActivities)
+function validOutdoor($outdoorActivities, $chosenOutdoorActivities)
 {
-    global $f3;
-    return in_array($outdoorActivities, $f3->get('outdoorActivities'));
+    if (empty($chosenOutdoorActivities))
+    {
+        return false;
+    }
+    foreach ($chosenOutdoorActivities as $chosenOutdoorActivity)
+    {
+        if (!in_array($chosenOutdoorActivity, $outdoorActivities)) return false;
+    }
+    return true;
 }
 
 /**
  * @param $indoorActivities
  * @return bool
  */
-function validIndoor($indoorActivities)
+function validIndoor($indoorActivities, $chosenIndoorActivities)
 {
-    global $f3;
-    return in_array($indoorActivities, $f3->get('indoorActivities'));
+    if (empty($chosenIndoorActivities))
+    {
+        return false;
+    }
+    foreach ($chosenIndoorActivities as $chosenIndoorActivity)
+    {
+        if (!in_array($chosenIndoorActivity, $indoorActivities)) return false;
+    }
+    return true;
 }
+
+
+/**
+ * Premium Member selection validation
+ */
+
+function isMember($member)
+{
+    return isset($member) && !empty($member);
+}
+
 
 //checking name values
 if (!validString($fname))
@@ -93,11 +120,11 @@ if (!validString($lname))
     $errors['lname'] = "Please enter a last name.";
 }
 
-if (!validOutdoor($outdoorActivities))
+if (!validOutdoor($outdoorActivities, $chosenOutdoorActivities))
 {
     $errors['outdoorActivities'] = "Please choose a valid outdoor activity for your profile.";
 }
-if (!validOutdoor($indoorActivities))
+if (!validIndoor($indoorActivities, $chosenIndoorActivities))
 {
     $errors['indoorActivities'] = "Please choose a valid indoor activities for your profile.";
 }

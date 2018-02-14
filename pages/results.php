@@ -66,10 +66,16 @@ ini_set("display_errors", TRUE);
                             <td>State: {{@state}}</td>
                         </tr>
                         <tr>
-                            <td>Seeking: {{@genderLook}}<td>
+                            <td>Seeking: {{@genderLook}}</td>
                         </tr>
                         <tr>
-                            <td>Interests: </td>
+                            <check if="{{@member}}">
+                                <true>
+                                    <td>Interests: <repeat group="{{@combineActivities}}"
+                                                           value="{{@value}}">{{@value}} </repeat></td>
+                                </true>
+                            </check>
+
                         </tr>
                         </tbody>
                     </table>

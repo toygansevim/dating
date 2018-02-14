@@ -5,10 +5,15 @@
  * Date: 2/2/18
  * Time: 7:40 PM
  */
+
+//define errors array
+$errorsProfile = array();
+
+
 function validEmail($email)
 {
-    return true;
-    //return preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;
+   return isset($email) && !empty($email);
+    //return preg_match("/\b(?:(?:http?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;
     //]*[-a-z0-9+&@#\/%=~_|]/i", $email);
 }
 
@@ -16,17 +21,15 @@ function validEmail($email)
  * @param $gender
  * @return bool
  */
-function validGender($gender)
+function validGenderLook($genderLook)
 {
-    return isset($gender);
-
+    return isset($genderLook);
 }
 
-if(empty($biograpgy))
+if(empty($biography))
 {
     $errorsProfile['biography'] = "Please enter a bio";
 }
-
 
 if(!validEmail($email))
 {
@@ -38,7 +41,9 @@ if(!isset($state))
     $errorsProfile['state'] = "Please provide your state";
 }
 
-if(!validGender($genderLook))
+if(!validGenderLook($genderLook))
 {
-    $errorsProfile['genderLook'] = "Please provide a binary choice of attraction ";
+    $errorsProfile['genderLook'] = "Please provide a binary choice of attraction";
 }
+
+$successProfile = sizeof($errorsProfile) == 0;

@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 /**
  * Created by PhpStorm.
  * User:Toygan Sevim
@@ -10,9 +8,9 @@ session_start();
  * This is a interests file that allow's the user to view the option's of
  * activities and choose their favorites*/
 
+session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", TRUE);
-
 ?>
 
 <!DOCTYPE html>
@@ -42,11 +40,38 @@ ini_set("display_errors", TRUE);
             <!--            Heading-->
             <h1>Interests</h1>
             <hr>
-            <form action="./results" method="post">
-
-
-                <!--Next button-->
+            <form action="" method="post">
                 <div class="col-12">
+                    <check if="{{@errors['indoorActivities']}} || {{@errors['outdoorActivities']}}">
+                        <p class="text-danger">Please enter Interest Options</p>
+                    </check>
+
+                    <h5>In-door Interests</h5>
+                    <repeat group="{{@indoorActivities}}" value="{{@value}}"
+                            key="{{@key}}">
+                        <label class="custom-control custom-checkbox col-3 float-left">
+                            <input type="checkbox" name="indoorActivities[]"
+                                   value="{{@value}}"
+
+                            > <span class="pl-1">{{@value}}</span>
+                        </label>
+                    </repeat>
+                </div>
+                <br>
+
+                <div class="col-12 mt-5">
+                    <h5>Out-door Interests</h5>
+                    <repeat group="{{@outdoorActivities}}" value="{{@value}}" key="{{@key}}">
+                        <label class="custom-control custom-checkbox col-3 float-left">
+                            <input type="checkbox" name="outdoorActivities[]"
+                                   value="{{@value}}"
+
+                            > <span class="pl-1">{{@value}}</span>
+                        </label>
+                    </repeat>
+                </div>
+                <!--Next button-->
+                <div class="">
                     <div class="text-right">
                         <input type="submit" value="Next >" name="submit" class="btn btn-primary">
                     </div>

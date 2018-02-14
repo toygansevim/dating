@@ -20,7 +20,6 @@
 </head>
 <body>
 
-
 <!--Navbar-->
 <nav class="navbar navbar-light border border-left-0 border-right-0 border-top-0 mb-2">
     <h1 class="navbar-brand mb-0">My Dating Website</h1>
@@ -34,28 +33,33 @@
                     <table class="table table-bordered">
                         <tbody>
                         <tr class="">
-                            <td>Name:</td>
+                            <td>Name: <?= ($fname) ?></td>
                         </tr>
                         <tr>
-                            <td>Gender:</td>
+                            <td>Gender: <?= ($gender) ?></td>
                         </tr>
                         <tr>
-                            <td>Age:</td>
+                            <td>Age: <?= ($age) ?></td>
                         </tr>
                         <tr>
-                            <td>Phone:</td>
+                            <td>Phone: <?= ($phone) ?></td>
                         </tr>
                         <tr>
-                            <td>Email:</td>
+                            <td>Email: <?= ($email) ?></td>
                         </tr>
                         <tr>
-                            <td>State:</td>
+                            <td>State: <?= ($state) ?></td>
                         </tr>
                         <tr>
-                            <td>Seeking:</td>
+                            <td>Seeking: <?= ($genderLook) ?></td>
                         </tr>
                         <tr>
-                            <td>Interests:</td>
+                            <?php if ($member): ?>
+                                
+                                    <td>Interests: <?php foreach (($combineActivities?:[]) as $value): ?><?= ($value) ?> <?php endforeach; ?></td>
+                                
+                            <?php endif; ?>
+
                         </tr>
                         </tbody>
                     </table>
@@ -67,17 +71,8 @@
                     <div class="container justify-content-center text-center">
                         <h3>Biography</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tempor
-                            dapibus diam eget aliquam. Mauris eget tellus sit amet neque faucibus
-                            ultrices eu et ante. Integer tincidunt eget nisl at volutpat. Nunc
-                            maximus dolor sit amet quam efficitur lacinia. Nullam fringilla
-                            dignissim tempor. Maecenas purus dolor, tempus vitae scelerisque nec,
-                            pretium quis odio. Mauris commodo ultrices urna sed tempor. Fusce sit
-                            amet lorem vehicula, auctor mi in, maximus eros. Nam egestas elit eu sem
-                            scelerisque volutpat. Etiam ut dui vel tellus consequat rhoncus. Cras
-                            lacinia nibh vel purus feugiat, eget egestas felis sodales. Phasellus
-                            semper ligula non aliquet pretium. Morbi dictum in ligula finibus
-                            bibendum.
+                            <?= ($biography)."
+" ?>
                         </p>
                     </div>
                 </div>

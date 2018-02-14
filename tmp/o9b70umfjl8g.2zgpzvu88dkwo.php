@@ -35,7 +35,7 @@ class.
             <h1>Personal Information</h1>
             <hr>
 
-            <form action="#" method="post">
+            <form action="" method="post">
                 <div class="row">
                     <!--Placed outside col-8 to lower privacy policy visually-->
                     <div class="col-12">
@@ -116,6 +116,16 @@ class.
                         <input class="form-control" type="text" value="<?= ($phone) ?>" id="phone" name="phone"
                                pattern="[0-9]{10}">
                     </div> <!--div class="col-4"-->
+
+                    <!--Phone Number-->
+                    <div class="col-8">
+                        <label for="member" class="form-label font-weight-bold custom-checkbox mb-1">Premium Membership
+                        </label>
+                        <br>
+                        <input class="" type="checkbox" value="member" id="member" name="member">
+                        Sign me up for a Premium Account!
+                    </div>
+                    <!--div class="col-4"-->
 
                     <!--Submit Button-->
                     <div class="col-4">
