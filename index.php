@@ -210,9 +210,9 @@ $f3->route('GET|POST /pages/results', function ($f3)
 {
     $primeMember = $_SESSION['primeMember'];
 
-    //$f3->set('selectedMember', 'selectedMember');
+    $f3->set('selectedMember', 'selectedMember');
 /*
-    include "classes/Member.php";*/
+    include "classes/Member.php";
 
     $f3->set('fname', $primeMember->getFname());
     $f3->set('lname', $primeMember->getLname());
@@ -224,8 +224,13 @@ $f3->route('GET|POST /pages/results', function ($f3)
     $f3->set('biography', $_SESSION['biography']);
     $f3->set('genderLook', $_SESSION['genderLook']);
 
+*/
+
+    //var_dump($_SESSION);
     $combineActivities = array_merge($_SESSION['outdoorActivities'],$_SESSION['indoorActivities']);
     $f3->set('combineActivities', $combineActivities);
+
+    print_r($primeMember);
 
     echo Template::instance()->render("pages/results.php");
 
