@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit92e2223e072fc33c91b7ab56c1c3497b
+class ComposerStaticInite624d8a884c58d679ce3af74ff79a4b6
 {
     public static $classMap = array (
         'Audit' => __DIR__ . '/..' . '/bcosca/fatfree-core/audit.php',
@@ -32,7 +32,9 @@ class ComposerStaticInit92e2223e072fc33c91b7ab56c1c3497b
         'Magic' => __DIR__ . '/..' . '/bcosca/fatfree-core/magic.php',
         'Markdown' => __DIR__ . '/..' . '/bcosca/fatfree-core/markdown.php',
         'Matrix' => __DIR__ . '/..' . '/bcosca/fatfree-core/matrix.php',
+        'Member' => __DIR__ . '/../..' . '/classes/Member.php',
         'Prefab' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
+        'PremiumMember' => __DIR__ . '/../..' . '/classes/PremiumMember.php',
         'Preview' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
         'Registry' => __DIR__ . '/..' . '/bcosca/fatfree-core/base.php',
         'SMTP' => __DIR__ . '/..' . '/bcosca/fatfree-core/smtp.php',
@@ -53,7 +55,7 @@ class ComposerStaticInit92e2223e072fc33c91b7ab56c1c3497b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit92e2223e072fc33c91b7ab56c1c3497b::$classMap;
+            $loader->classMap = ComposerStaticInite624d8a884c58d679ce3af74ff79a4b6::$classMap;
 
         }, null, ClassLoader::class);
     }

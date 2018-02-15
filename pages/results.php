@@ -69,10 +69,13 @@ ini_set("display_errors", TRUE);
                             <td>Seeking: {{@genderLook}}</td>
                         </tr>
                         <tr>
-                            <check if="{{@member}}">
+                            <check if="{{@selectedMember}}">
                                 <true>
-                                    <td>Interests: <repeat group="{{@combineActivities}}"
-                                                           value="{{@value}}">{{@value}} </repeat></td>
+                                    <td>Interests:
+                                        <repeat group="{{@combineActivities}}"
+                                                value="{{@value}}">{{@value}}
+                                        </repeat>
+                                    </td>
                                 </true>
                             </check>
 

@@ -1,12 +1,15 @@
 {
-  "name":"/home/tsevimgr/public_html/328/dating",
-  "authors":  [
+  "name": "/home/tsevimgr/public_html/328/dating",
+  "authors": [
     {
       "name": "Toygan Sevim",
-      "email":"tsevim@mail.greenriver.edu"
+      "email": "tsevim@mail.greenriver.edu"
     }
   ],
   "require": {
     "bcosca/fatfree-core": "dev-master"
+  },
+  "autoload":{
+    "classmap":["classes/"]
   }
 }

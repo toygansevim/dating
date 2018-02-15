@@ -6,18 +6,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/bcosca/fatfree-core.git",
-            "reference": "10f97fb756b42d82ccdc02ad8054a1af8b589c83"
+            "reference": "e936361bc03010c4c7c38a396562e5e96a8a100d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/bcosca/fatfree-core/zipball/10f97fb756b42d82ccdc02ad8054a1af8b589c83",
-            "reference": "10f97fb756b42d82ccdc02ad8054a1af8b589c83",
+            "url": "https://api.github.com/repos/bcosca/fatfree-core/zipball/e936361bc03010c4c7c38a396562e5e96a8a100d",
+            "reference": "e936361bc03010c4c7c38a396562e5e96a8a100d",
             "shasum": ""
         },
         "require": {
             "php": ">=5.4"
         },
-        "time": "2018-01-12 18:47:02",
+        "time": "2018-02-13 12:01:50",
         "type": "library",
         "installation-source": "source",
         "autoload": {
