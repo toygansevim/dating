@@ -6,8 +6,12 @@
  * Time: 9:47 PM
  * This is the index page that starts fat free and defines a default route to our home.html page
  */
+
+
+/*
+
 error_reporting(E_ALL);
-ini_set("display_errors", 1);
+ini_set("display_errors", 1);*/
 
 //define fat free
 require_once('vendor/autoload.php');
@@ -16,6 +20,39 @@ session_start();
 
 //create an instance of the base class
 $f3 = Base::instance();
+/*ini_set('display_errors',0);
+// Deprecated directives
+@ini_set('magic_quotes_gpc',0);
+@ini_set('register_globals',0);
+// Abort on startup error
+// Intercept errors/exceptions; PHP5.3-compatible
+error_reporting(E_ALL|E_STRICT);
+//$f3=$this;
+set_exception_handler(
+    function($obj) use($f3) {
+        $f3->error(500,$obj->getmessage(),$obj->gettrace());
+    }
+);
+set_error_handler(
+    function($code,$text) use($f3)
+    {
+        if (error_reporting())
+        {
+                       $f3->error(500,$text);
+            //echo "FUCK"}
+        }
+    });*/
+
+///fatfree enable error reporting
+$f3->set('DEBUG', 3); // highest is 3 lowest 0;
+
+//activities
+$outdoorActivities = array("hiking", "biking", "swimming",
+                           "collecting",
+                           "walking", "climbing");
+$indoorActivities = array("tv", "movies", "cooking", "board games", "puzzles", "reading",
+                          "playing cards", "video games");
+
 
 //define a default rote to render home.html
 $f3->route('GET /', function ()
@@ -24,12 +61,8 @@ $f3->route('GET /', function ()
     echo $view->render('pages/home.html');
 });
 
-//activities
-$f3->set("outdoorActivities", array("hiking", "biking", "swimming",
-                                    "collecting",
-                                    "walking", "climbing"));
-$f3->set("indoorActivities", array("tv", "movies", "cooking", "board games", "puzzles", "reading",
-                                   "playing cards", "video games"));
+$f3->set('outdoorActivities', $outdoorActivities);
+$f3->set('indoorActivities', $indoorActivities);
 
 //Define a default route
 $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
@@ -46,6 +79,8 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
                     $fname = $_POST['fname'];
                     $lname = $_POST['lname'];
                     $age = $_POST['age'];
+
+
                     $gender = $_POST['gender'];
                     $phone = $_POST['phone'];
 
@@ -66,7 +101,7 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
                         $_SESSION['memberUser'] = $member;
                     }
 
-                    include('model/validate.php');
+                    include 'model/validate.php';
 
                     $f3->set('errors', $errors);
                     $f3->set('success', $success);
@@ -131,10 +166,10 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
                         $_SESSION['genderLook'] = $genderLook;
                         $_SESSION['biography'] = $biography;
 
-                      /*  $member->setEmail($email);
-                        $member->setState($state);
-                        $member->setSeeking($genderLook);
-                        $member->setBio($biography);*/
+                        /*  $member->setEmail($email);
+                          $member->setState($state);
+                          $member->setSeeking($genderLook);
+                          $member->setBio($biography);*/
 
                         $_SESSION['memberUser'] = $member;
 
@@ -208,36 +243,40 @@ $f3->route('GET|POST /pages/interests', function ($f3)
 //define a default rote to render home.html
 $f3->route('GET|POST /pages/results', function ($f3)
 {
-    $primeMember = $_SESSION['primeMember'];
+    $primeMember = $_SESSION['selectedMember'];
+    $memberUser = $_SESSION['memberUser'];
 
-    $f3->set('selectedMember', 'selectedMember');
-/*
-    include "classes/Member.php";
+    include "model/sanityCheck.php";
 
-    $f3->set('fname', $primeMember->getFname());
-    $f3->set('lname', $primeMember->getLname());
-    $f3->set('gender', $primeMember->getGender());
-    $f3->set('age', $primeMember->getAge());
-    $f3->set('phone', $primeMember->getPhone());
+    $f3->set('selectedMember', $primeMember);
+
+    $fname = $_SESSION['fname'];
+
+
+/*         GETTERS AND SETTERS ARE NOT RECOGNIZED BY THE BROWSER?        */
+
+
+    $f3->set('fname', $_SESSION['fname']);
+    $f3->set('lname', $_SESSION['lname']);
+    $f3->set('gender', $_SESSION['gender']);
+    $f3->set('age', $_SESSION['age']);
+    $f3->set('phone', $_SESSION['phone']);
     $f3->set('email', $_SESSION['email']);
     $f3->set('state', $_SESSION['state']);
     $f3->set('biography', $_SESSION['biography']);
     $f3->set('genderLook', $_SESSION['genderLook']);
 
-*/
+    if (isset($_SESSION['indoorActivities']) && isset($_SESSION['outdoorActivities']))
+    {
+        $combineActivities = array_merge($_SESSION['outdoorActivities'], $_SESSION['indoorActivities']);
+        $f3->set('combineActivities', $combineActivities);
 
-    //var_dump($_SESSION);
-    $combineActivities = array_merge($_SESSION['outdoorActivities'],$_SESSION['indoorActivities']);
-    $f3->set('combineActivities', $combineActivities);
-
-    print_r($primeMember);
+    }
 
     echo Template::instance()->render("pages/results.php");
 
 });
 
-///fatfree enable error reporting
-$f3->set('DEBUG', 3); // highest is 3 lowest 0;
 
 //run fat free
 $f3->run();

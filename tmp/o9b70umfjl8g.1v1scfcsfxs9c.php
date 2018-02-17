@@ -1,17 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User:Toygan Sevim
- * Date: 1/29/18
- * Time: 4:03 PM
- *
- * This is a interests file that allow's the user to view the option's of
- * activities and choose their favorites*/
 
-session_start();
-error_reporting(E_ALL);
-ini_set("display_errors", TRUE);
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,33 +29,32 @@ ini_set("display_errors", TRUE);
             <hr>
             <form action="" method="post">
                 <div class="col-12">
-                    <check if="{{@errors['indoorActivities']}} || {{@errors['outdoorActivities']}}">
+                    <?php if ($errors['indoorActivities'] || $errors['outdoorActivities']): ?>
                         <p class="text-danger">Please enter Interest Options</p>
-                    </check>
+                    <?php endif; ?>
 
                     <h5>In-door Interests</h5>
-                    <repeat group="{{@indoorActivities}}" value="{{@value}}"
-                            key="{{@key}}">
+                    <?php foreach (($indoorActivities?:[]) as $key=>$value): ?>
                         <label class="custom-control custom-checkbox col-3 float-left">
                             <input type="checkbox" name="indoorActivities[]"
-                                   value="{{@value}}"
+                                   value="<?= ($value) ?>"
 
-                            > <span class="pl-1">{{$value}}</span>
+                            > <span class="pl-1"><?= ($value) ?></span>
                         </label>
-                    </repeat>
+                    <?php endforeach; ?>
                 </div>
                 <br>
 
                 <div class="col-12 mt-5">
                     <h5>Out-door Interests</h5>
-                    <repeat group="{{@outdoorActivities}}" value="{{@value}}" key="{{@key}}">
+                    <?php foreach (($outdoorActivities?:[]) as $key=>$value): ?>
                         <label class="custom-control custom-checkbox col-3 float-left">
                             <input type="checkbox" name="outdoorActivities[]"
-                                   value="{{@value}}"
+                                   value="<?= ($value) ?>"
 
-                            > <span class="pl-1">{{$value}}</span>
+                            > <span class="pl-1"><?= ($value) ?></span>
                         </label>
-                    </repeat>
+                    <?php endforeach; ?>
                 </div>
                 <!--Next button-->
                 <div class="">

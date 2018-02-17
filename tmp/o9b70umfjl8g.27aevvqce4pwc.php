@@ -1,19 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Toygan Sevim
- * Date: 1/29/18
- * Time: 4:28 PM
- *
- * This is the restults page that will show the person's whole
- * input values to check and correct
- */
 
-session_start();
-error_reporting(E_ALL);
-ini_set("display_errors", TRUE);
-
-?>
 
 <!--Toygan Sevim
     Home.html
@@ -48,36 +33,36 @@ ini_set("display_errors", TRUE);
                     <table class="table table-bordered">
                         <tbody>
                         <tr class="">
-                            <td>Name: {{exists($fname) ? $fname : ''}} </td>
+                            <td>Name: <?= (exists($fname) ? $fname : '') ?> </td>
                         </tr>
                         <tr>
-                            <td>Gender: {{exists($gender) ? $gender : ''}}</td>
+                            <td>Gender: <?= (exists($gender) ? $gender : '') ?></td>
                         </tr>
                         <tr>
-                            <td>Age: {{exists($age) ? $age : ''}}</td>
+                            <td>Age: <?= (exists($age) ? $age : '') ?></td>
                         </tr>
                         <tr>
-                            <td>Phone: {{exists($phone) ? $phone : ''}}</td>
+                            <td>Phone: <?= (exists($phone) ? $phone : '') ?></td>
                         </tr>
                         <tr>
-                            <td>Email: {{exists($email) ? $email : ''}}</td>
+                            <td>Email: <?= (exists($email) ? $email : '') ?></td>
                         </tr>
                         <tr>
-                            <td>State: {{exists($state) ? $state : ''}}</td>
+                            <td>State: <?= (exists($state) ? $state : '') ?></td>
                         </tr>
                         <tr>
-                            <td>Seeking: {{exists($genderLook) ? $genderLook : ''}}</td>
+                            <td>Seeking: <?= (exists($genderLook) ? $genderLook : '') ?></td>
                         </tr>
                         <tr>
-                            <check if="{{@selectedMember == 'selectedMember' }}">
-                                <true>
+                            <?php if ($selectedMember == 'selectedMember'): ?>
+                                
                                     <td>Interests:
-                                        <repeat group="{{@combineActivities}}"
-                                                value="{{@value}}">{{$value}}
-                                        </repeat>
+                                        <?php foreach (($combineActivities?:[]) as $value): ?><?= ($value)."
+" ?>
+                                        <?php endforeach; ?>
                                     </td>
-                                </true>
-                            </check>
+                                
+                            <?php endif; ?>
 
                         </tr>
                         </tbody>
@@ -90,7 +75,8 @@ ini_set("display_errors", TRUE);
                     <div class="container justify-content-center text-center">
                         <h3>Biography</h3>
                         <p>
-                            {{exists($biography) ? $biography : ''}}
+                            <?= (exists($biography) ? $biography : '')."
+" ?>
                         </p>
                     </div>
                 </div>

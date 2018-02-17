@@ -13,13 +13,7 @@ class PremiumMember extends Member
     public function __construct($fname, $lname, $age, $gender, $phone, $indoorActivities,
                                 $outdoorActivities)
     {
-        //parent::__construct();
-         parent::__construct($fname, $lname, $age, $gender, $phone);
-      /*  $this->fname = $fname;
-        $this->lname = $lname;
-        $this->age = $age;
-        $this->gender = $gender;
-        $this->phone = $phone;*/
+        parent::__construct($fname, $lname, $age, $gender, $phone);
         $this->_indoorActivities = $indoorActivities;
         $this->_outdoorActivitites = $outdoorActivities;
     }
