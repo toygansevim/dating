@@ -15,6 +15,7 @@ ini_set("display_errors", 1);*/
 
 //define fat free
 require_once('vendor/autoload.php');
+require_once('model/databaseFunctions.php');
 
 session_start();
 
@@ -42,6 +43,9 @@ set_error_handler(
             //echo "FUCK"}
         }
     });*/
+
+//Connect to the database
+$conn = connect();
 
 ///fatfree enable error reporting
 $f3->set('DEBUG', 3); // highest is 3 lowest 0;
@@ -243,7 +247,11 @@ $f3->route('GET|POST /pages/interests', function ($f3)
 //define a default rote to render home.html
 $f3->route('GET|POST /pages/results', function ($f3)
 {
-    $primeMember = $_SESSION['selectedMember'];
+    if (isset($_SESSION['selectedMember']))
+    {
+        $primeMember = $_SESSION['selectedMember'];
+        $userPrime = true;
+    }
     $memberUser = $_SESSION['memberUser'];
 
     include "model/sanityCheck.php";
@@ -253,7 +261,7 @@ $f3->route('GET|POST /pages/results', function ($f3)
     $fname = $_SESSION['fname'];
 
 
-/*         GETTERS AND SETTERS ARE NOT RECOGNIZED BY THE BROWSER?        */
+    /*         GETTERS AND SETTERS ARE NOT RECOGNIZED BY THE BROWSER?        */
 
 
     $f3->set('fname', $_SESSION['fname']);
@@ -272,6 +280,11 @@ $f3->route('GET|POST /pages/results', function ($f3)
         $f3->set('combineActivities', $combineActivities);
 
     }
+//
+//    addAccount($_SESSION['fname'], $_SESSION['lname'], $_SESSION['gender'], $_SESSION['genderLook'],
+//        $_SESSION['email'], $_SESSION['age'], $_SESSION['phone'], $combineActivities,
+//        $_SESSION['biography'], $userPrime, $_SESSION['state'], NULL);
+    addAccount($fname, null, null, null, null, null, null, null, null, null, null, null);
 
     echo Template::instance()->render("pages/results.php");
 
