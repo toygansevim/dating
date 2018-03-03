@@ -144,3 +144,29 @@ if (!validGender($gender))
 }
 $success = sizeof($errors) == 0;
 
+
+//extra Error reporting if ever needed
+
+/*ini_set('display_errors',0);
+// Deprecated directives
+@ini_set('magic_quotes_gpc',0);
+@ini_set('register_globals',0);
+// Abort on startup error
+// Intercept errors/exceptions; PHP5.3-compatible
+error_reporting(E_ALL|E_STRICT);
+//$f3=$this;
+set_exception_handler(
+    function($obj) use($f3) {
+        $f3->error(500,$obj->getmessage(),$obj->gettrace());
+    }
+);
+set_error_handler(
+    function($code,$text) use($f3)
+    {
+        if (error_reporting())
+        {
+                       $f3->error(500,$text);
+            //echo "NOPE"}
+        }
+    });*/
+
