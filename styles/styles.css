@@ -16,22 +16,23 @@ img.rounded {
     font-size: small;
 }
 
-#userImage{
+#userImage {
     width: 100% !important;
     height: 67% !important;
 }
 
 /*Navbar*/
-.navbar{
+.navbar {
     background-color: #f2f2f2;
     color: gray;
 }
 
 /*Text box bg */
-.text-center.rounded.border.border-secondary.px-2.py-2
- {
+.text-center.rounded.border.border-secondary.px-2.py-2 {
     background-color: lightgray;
- }
+}
 
-td{
+td.interested{
+    word-wrap: break-word;
+    word-break: break-all;
 }

@@ -13,7 +13,6 @@ ini_set("display_errors", 1);
 
 //define fat free
 require_once('vendor/autoload.php');
-require_once('vendor/autoload.php');
 
 session_start();
 
@@ -34,6 +33,8 @@ $outdoorActivities = array("hiking", "biking", "swimming",
 $indoorActivities = array("tv", "movies", "cooking", "board games", "puzzles", "reading",
                           "playing cards", "video games");
 
+$f3->set('outdoorActivities', $outdoorActivities);
+$f3->set('indoorActivities', $indoorActivities);
 
 //define a default rote to render home.html
 $f3->route('GET /', function ()
@@ -41,9 +42,6 @@ $f3->route('GET /', function ()
     $view = new View; //could be template too, ask
     echo $view->render('pages/home.html');
 });
-
-$f3->set('outdoorActivities', $outdoorActivities);
-$f3->set('indoorActivities', $indoorActivities);
 
 //Define a default route
 $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
@@ -57,7 +55,7 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
                 if (isset($_POST['submit']))
                 {
                     //echo print_r($_POST);
-                    $fname = strip_tags($_POST['fname']);
+                    $fname = $_POST['fname'];
                     $lname = $_POST['lname'];
                     $age = $_POST['age'];
 
@@ -113,10 +111,14 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
                 echo Template::instance()->render("pages/personal_info.html");
             }
             break;
-
         case 'profile':
-
-            $member = $_SESSION['memberUser'];
+            if (isset($_SESSION['primeMember']))
+            {
+                $member = $_SESSION['primeMember'];
+            } else
+            {
+                $member = $_SESSION['memberUser'];
+            }
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST')
             {
@@ -146,18 +148,18 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
                         $_SESSION['genderLook'] = $genderLook;
                         $_SESSION['biography'] = $biography;
 
-                        /*  $member->setEmail($email);
-                          $member->setState($state);
-                          $member->setSeeking($genderLook);
-                          $member->setBio($biography);*/
+                        $member->setEmail($email);
+                        $member->setState($state);
+                        $member->setSeeking($genderLook);
+                        $member->setBio($biography);
 
-                        $_SESSION['memberUser'] = $member;
-
-                        if (isset($_SESSION['selectedMember']) && !empty($_SESSION['selectedMember']))
+                        if (isset($_SESSION['primeMember']) && !empty($_SESSION['primeMember']))
                         {
+                            $_SESSION['primeMember'] = $member;
                             $f3->reroute('./interests');
                         } else
                         {
+                            $_SESSION['memberUser'] = $member;
                             $f3->reroute('./results');
                         }
                     }
@@ -222,29 +224,28 @@ $f3->route('GET|POST /pages/results', function ($f3)
 
     if (isset($_SESSION['selectedMember']))
     {
-        $primeMember = $_SESSION['selectedMember'];
+        $memberUser = $_SESSION['primeMember'];
         $userPrime = true;
+        $f3->set('userPrime', $userPrime);
+    } else
+    {
+        $userPrime = false;
+        $memberUser = $_SESSION['memberUser'];
+        $f3->set('userPrime', $userPrime);
     }
-    $memberUser = $_SESSION['memberUser'];
 
-    include "model/sanityCheck.php";
+    $f3->set('selectedMember', $memberUser);
 
-    $f3->set('selectedMember', $primeMember);
+    $fname = exists($memberUser->getFname()) ? $memberUser->getFname : "FUCK";
+    $lname = exists($memberUser->getLname());
+    $age = exists($memberUser->getAge());
+    $gender = exists($memberUser->getGender());
+    $seek = exists($memberUser->getSeeking());
+    $phone = exists($memberUser->getPhone());
+    $email = exists($memberUser->getEmail());
+    $state = exists($memberUser->getState());
+    $bio = exists($memberUser->getBio());
 
-    $fname = $_SESSION['fname'];
-    $lname = $_SESSION['lname'];
-
-
-    /*         GETTERS AND SETTERS ARE NOT RECOGNIZED BY THE BROWSER?        */
-    $f3->set('fname', $_SESSION['fname']);
-    $f3->set('lname', $_SESSION['lname']);
-    $f3->set('gender', $_SESSION['gender']);
-    $f3->set('age', $_SESSION['age']);
-    $f3->set('phone', $_SESSION['phone']);
-    $f3->set('email', $_SESSION['email']);
-    $f3->set('state', $_SESSION['state']);
-    $f3->set('biography', $_SESSION['biography']);
-    $f3->set('genderLook', $_SESSION['genderLook']);
 
     if (isset($_SESSION['indoorActivities']) && isset($_SESSION['outdoorActivities']))
     {
@@ -253,10 +254,16 @@ $f3->route('GET|POST /pages/results', function ($f3)
 
     }
 
+    $genderInitial = strtoupper(substr($gender, 0, 1));
+    $seekInitial = strtoupper(substr($seek, 0, 1));
+    //echo "<h1>" . $seekInitial . "</h1>";
+    $stateTag = strtoupper(substr($state, 0, 2));
 
-    $DBobject->addAccount($fname, $lname, $_SESSION['gender'], $_SESSION['genderLook'],
-        $_SESSION['email'], $_SESSION['age'], $_SESSION['phone'], $combineActivities,
-        $_SESSION['biography'], $userPrime, $_SESSION['state'], NULL);
+
+    $DBobject->addAccount($fname, $lname, $genderInitial, $seekInitial,
+        $email, $age, $phone, implode(",", $combineActivities),
+        $bio, $userPrime, $stateTag, NULL);
+
 
     echo Template::instance()->render("pages/results.php");
 
@@ -266,7 +273,6 @@ $f3->route('GET|POST /pages/admin', function ($f3, $params)
 {
 
     global $DBobject;
-
 
     $members = $DBobject->displayMembers();
 

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
           integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
 
@@ -36,23 +36,43 @@
                 <th scope="col">Interests</th>
             </tr>
             </thead>
-            <repeat group="{{ @members }}" value="{{ @member }}">
-                <tbody>
-                <tr>hone	Email	State	Gender	Seeking	Premium	Interests
-                    <td>{{ @member['member_id'] }}</td>
-                    <td>{{ @member['fname'] }} {{ @member['lname'] }}</td>
-                    <td>{{ @member['age'] }}</td>
-                    <td>{{ @member['phone'] }}</td>
-                    <td>{{ @member['email'] }}</td>
-                    <td>{{ @member['state'] }}</td>
-                    <td>{{ @member['gender'] }}</td>
-                    <td>{{ @member['seeking'] }}</td>
-                    <check if=""></check>
-                    <td class="checkbox">{{ @member['premium'] }}</td>
-                    <td>{{ @member['age'] }}</td>
+            <tbody>
+            <repeat group="{{ @members }}" key="{{@i}}" value="{{@member}}">
+                <tr>
+                    <th scope="row">{{@member['member_id']}}</th>
+                    <td>{{@member['fname']}} {{@member['lname']}}</td>
+                    <td>{{@member['age']}}</td>
+                    <td>{{@member['phone']}}</td>
+                    <td>{{@member['email']}}</td>
+                    <td>{{@member['state']}}</td>
+                    <td>{{@member['gender']}}</td>
+                    <td>{{@member['seeking']}}</td>
+
+                    <check if="{{@member['userPrime'] == 1}}">
+                        <true>
+                            <td class="custom-control custom-checkbox ml-5"><input id="premium_{{ @i }}"
+                                       class="custom-control-input"
+                                       type="checkbox"
+                                       checked="checked"/>
+                                <label for="premium_{{ @i }}" class="custom-control-label"></label>
+                            </td>
+                        </true>
+                        <false>
+                            <td class="custom-control custom-checkbox ml-5">
+
+                                <input id="premium_{{ @i }}"
+                                       class="custom-control-input"
+                                       type="checkbox"
+                                       checked="checked"/>
+                                <label for="premium_{{ @i }}" class="custom-control-label"></label>
+
+                            </td>
+                        </false>
+                    </check>
+                    <td class="interested"> {{@member['interests'] }}</td>
                 </tr>
-                </tbody>
             </repeat>
+            </tbody>
         </table>
 
 

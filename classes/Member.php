@@ -8,7 +8,9 @@
 
 class Member
 {
-    protected $fname, $lname, $age, $gender, $phone, $email, $seeking, $bio, $img, $isPremium = false;
+    protected $fname, $lname, $age, $gender, $phone, $email, $state, $seeking, $bio, $img,
+        $isPremium = false;
+
 
     public function __construct($fname, $lname, $age, $gender, $phone)
     {
@@ -19,6 +21,21 @@ class Member
         $this->phone = $phone;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param mixed $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
     /**
      * @return mixed
      */

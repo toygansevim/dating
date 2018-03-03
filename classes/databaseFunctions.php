@@ -124,7 +124,7 @@ class databaseFunctions
             $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
             $conn->setAttribute(PDO::ATTR_PERSISTENT, true);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-           // echo "Connected to database for Dating app!";
+            // echo "Connected to database for Dating app!";
             //return connection
             return $conn;
 
@@ -188,6 +188,18 @@ image) values(:fname,:lname,:gender,:seeking,:email,:age,:phone,:interests,:bio,
         //prepare
         $statement = $conn->prepare($sql);
 
+
+        //check the interests, gender, seeking, and premium here to display correctly
+       /* $this->checkVal($fname);
+        $this->checkVal($lname);
+        $this->checkVal($gender);
+        $this->checkVal($seeking);
+        $this->checkVal($premium);
+        $this->checkVal($state);
+        $this->checkVal($age);
+        $this->checkVal($interests);*/
+
+
         //bind the parameters
         $statement->bindParam(':fname', $fname, PDO::PARAM_STR);
         $statement->bindParam(':lname', $lname, PDO::PARAM_STR);
@@ -214,6 +226,23 @@ image) values(:fname,:lname,:gender,:seeking,:email,:age,:phone,:interests,:bio,
     protected static function disconnect(&$connection)
     {
         unset($connection);
+    }
+
+    function exists($value)
+    {
+        return isset($value) && !empty($value);
+    }
+
+    function checkVal($value)
+    {
+        if (exists($value))
+        {
+            echo "<h1>" . $value . "</h1>";
+        } else
+        {
+            echo "<h1>ERROR</h1>";
+        }
+
     }
 
 }
