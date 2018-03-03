@@ -8,44 +8,21 @@
  */
 
 
-/*
-
 error_reporting(E_ALL);
-ini_set("display_errors", 1);*/
+ini_set("display_errors", 1);
 
 //define fat free
 require_once('vendor/autoload.php');
-require_once('model/databaseFunctions.php');
+require_once('vendor/autoload.php');
 
 session_start();
 
 //create an instance of the base class
 $f3 = Base::instance();
-/*ini_set('display_errors',0);
-// Deprecated directives
-@ini_set('magic_quotes_gpc',0);
-@ini_set('register_globals',0);
-// Abort on startup error
-// Intercept errors/exceptions; PHP5.3-compatible
-error_reporting(E_ALL|E_STRICT);
-//$f3=$this;
-set_exception_handler(
-    function($obj) use($f3) {
-        $f3->error(500,$obj->getmessage(),$obj->gettrace());
-    }
-);
-set_error_handler(
-    function($code,$text) use($f3)
-    {
-        if (error_reporting())
-        {
-                       $f3->error(500,$text);
-            //echo "FUCK"}
-        }
-    });*/
-
 //Connect to the database
-$conn = connect();
+
+$DBobject = new databaseFunctions();
+$conn = $DBobject->connect();
 
 ///fatfree enable error reporting
 $f3->set('DEBUG', 3); // highest is 3 lowest 0;
@@ -80,10 +57,9 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
                 if (isset($_POST['submit']))
                 {
                     //echo print_r($_POST);
-                    $fname = $_POST['fname'];
+                    $fname = strip_tags($_POST['fname']);
                     $lname = $_POST['lname'];
                     $age = $_POST['age'];
-
 
                     $gender = $_POST['gender'];
                     $phone = $_POST['phone'];
@@ -192,61 +168,58 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
             }
 
             break;
+        case 'interests':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST')
+            {
+                if (isset($_POST['submit']))
+                {
+                    $chosenOutdoorActivities = $_POST['outdoorActivities'];
+                    $chosenIndoorActivities = $_POST['indoorActivities'];
+
+                    include('model/validate.php');
+
+                    $f3->set('errors', $errors);
+                    $f3->set('success', $success);
+
+                    if (isset($errors['indoorActivities']) || isset($errors['outdoorActivities']))
+                    {
+                        $f3->set('chosenIndoorActivities', $chosenIndoorActivities);
+                        $f3->set('chosenOutdoorActivities', $chosenOutdoorActivities);
+
+                        echo Template::instance()->render('pages/Interests.php');
+                    } else
+                    {
+                        //INSANTIATE THE OBJECT AGAIN FROM SESSION AND ASSIGN VALUES
+                        $primeMember = $_SESSION['primeMember'];
+
+                        $primeMember->setIndoorActivities($chosenIndoorActivities);
+                        $primeMember->setOutdoorActivities($chosenOutdoorActivities);
+
+                        $_SESSION['indoorActivities'] = $chosenIndoorActivities;
+                        $_SESSION['outdoorActivities'] = $chosenOutdoorActivities;
+
+                        //set it back to the session var
+                        $_SESSION['primeMember'] = $primeMember;
+
+                        $f3->reroute('./results');
+                    }
+                }
+            } else if ($_SERVER['REQUEST_METHOD'] === 'GET')
+            {
+                echo Template::instance()->render('pages/Interests.php');
+            }
+            break;
 
         default:
             $f3->error(404);
     }
 });
 
-
-//define a default rote to render home.html
-
-$f3->route('GET|POST /pages/interests', function ($f3)
-{
-    if ($_SERVER['REQUEST_METHOD'] === 'POST')
-    {
-        if (isset($_POST['submit']))
-        {
-            $chosenOutdoorActivities = $_POST['outdoorActivities'];
-            $chosenIndoorActivities = $_POST['indoorActivities'];
-
-            include('model/validate.php');
-
-            $f3->set('errors', $errors);
-            $f3->set('success', $success);
-
-            if (isset($errors['indoorActivities']) || isset($errors['outdoorActivities']))
-            {
-                $f3->set('chosenIndoorActivities', $chosenIndoorActivities);
-                $f3->set('chosenOutdoorActivities', $chosenOutdoorActivities);
-
-                echo Template::instance()->render('pages/Interests.php');
-            } else
-            {
-                //INSANTIATE THE OBJECT AGAIN FROM SESSION AND ASSIGN VALUES
-                $primeMember = $_SESSION['primeMember'];
-
-                $primeMember->setIndoorActivities($chosenIndoorActivities);
-                $primeMember->setOutdoorActivities($chosenOutdoorActivities);
-
-                $_SESSION['indoorActivities'] = $chosenIndoorActivities;
-                $_SESSION['outdoorActivities'] = $chosenOutdoorActivities;
-
-                //set it back to the session var
-                $_SESSION['primeMember'] = $primeMember;
-
-                $f3->reroute('./results');
-            }
-        }
-    } else if ($_SERVER['REQUEST_METHOD'] === 'GET')
-    {
-        echo Template::instance()->render('pages/Interests.php');
-    }
-});
-
 //define a default rote to render home.html
 $f3->route('GET|POST /pages/results', function ($f3)
 {
+    global $DBobject;
+
     if (isset($_SESSION['selectedMember']))
     {
         $primeMember = $_SESSION['selectedMember'];
@@ -259,11 +232,10 @@ $f3->route('GET|POST /pages/results', function ($f3)
     $f3->set('selectedMember', $primeMember);
 
     $fname = $_SESSION['fname'];
+    $lname = $_SESSION['lname'];
 
 
     /*         GETTERS AND SETTERS ARE NOT RECOGNIZED BY THE BROWSER?        */
-
-
     $f3->set('fname', $_SESSION['fname']);
     $f3->set('lname', $_SESSION['lname']);
     $f3->set('gender', $_SESSION['gender']);
@@ -280,13 +252,27 @@ $f3->route('GET|POST /pages/results', function ($f3)
         $f3->set('combineActivities', $combineActivities);
 
     }
-//
-//    addAccount($_SESSION['fname'], $_SESSION['lname'], $_SESSION['gender'], $_SESSION['genderLook'],
-//        $_SESSION['email'], $_SESSION['age'], $_SESSION['phone'], $combineActivities,
-//        $_SESSION['biography'], $userPrime, $_SESSION['state'], NULL);
-    addAccount($fname, null, null, null, null, null, null, null, null, null, null, null);
+
+
+    $DBobject->addAccount($fname, $lname, $_SESSION['gender'], $_SESSION['genderLook'],
+        $_SESSION['email'], $_SESSION['age'], $_SESSION['phone'], $combineActivities,
+        $_SESSION['biography'], $userPrime, $_SESSION['state'], NULL);
 
     echo Template::instance()->render("pages/results.php");
+
+});
+
+$f3->route('GET|POST /pages/admin', function ($f3, $params)
+{
+
+    global $DBobject;
+
+
+    $members = $DBobject->displayMembers();
+
+    $f3->set('members', $members);
+
+    echo Template::instance()->render('pages/admin.html');
 
 });
 

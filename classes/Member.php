@@ -8,7 +8,7 @@
 
 class Member
 {
-    protected $fname, $lname, $age, $gender, $phone, $email, $seeking, $bio;
+    protected $fname, $lname, $age, $gender, $phone, $email, $seeking, $bio, $img, $isPremium = false;
 
     public function __construct($fname, $lname, $age, $gender, $phone)
     {
@@ -17,6 +17,38 @@ class Member
         $this->age = $age;
         $this->gender = $gender;
         $this->phone = $phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param mixed $img
+     */
+    public function setImg($img)
+    {
+        $this->img = $img;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisPremium()
+    {
+        return $this->isPremium;
+    }
+
+    /**
+     * @param mixed $isPremium
+     */
+    public function setIsPremium($isPremium)
+    {
+        $this->isPremium = $isPremium;
     }
 
     /**
