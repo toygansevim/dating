@@ -48,7 +48,7 @@
                     <td>{{@member['gender']}}</td>
                     <td>{{@member['seeking']}}</td>
 
-                    <check if="{{@member['userPrime'] == 1}}">
+                    <check if="{{@member['userPrime'] == true}}">
                         <true>
                             <td class="custom-control custom-checkbox ml-5"><input id="premium_{{ @i }}"
                                        class="custom-control-input"
@@ -63,7 +63,7 @@
                                 <input id="premium_{{ @i }}"
                                        class="custom-control-input"
                                        type="checkbox"
-                                       checked="checked"/>
+                                disabled/>
                                 <label for="premium_{{ @i }}" class="custom-control-label"></label>
 
                             </td>

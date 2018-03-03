@@ -112,18 +112,21 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
             }
             break;
         case 'profile':
-            if (isset($_SESSION['primeMember']))
-            {
-                $member = $_SESSION['primeMember'];
-            } else
-            {
-                $member = $_SESSION['memberUser'];
-            }
+
+
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST')
             {
                 if (isset($_POST['submit']))
                 {
+                    if (isset($_SESSION['selectedMember']))
+                    {
+                        $member = $_SESSION['primeMember'];
+                    } else
+                    {
+                        $member = $_SESSION['memberUser'];
+                    }
+
                     $email = $_POST['email'];
                     $state = $_POST['state'];
                     $genderLook = $_POST['genderLook'];
@@ -148,12 +151,14 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
                         $_SESSION['genderLook'] = $genderLook;
                         $_SESSION['biography'] = $biography;
 
+                        //set values
                         $member->setEmail($email);
                         $member->setState($state);
                         $member->setSeeking($genderLook);
                         $member->setBio($biography);
 
-                        if (isset($_SESSION['primeMember']) && !empty($_SESSION['primeMember']))
+
+                        if (isset($_SESSION['selectedMember']) && !empty($_SESSION['selectedMember']))
                         {
                             $_SESSION['primeMember'] = $member;
                             $f3->reroute('./interests');
@@ -211,7 +216,6 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
                 echo Template::instance()->render('pages/Interests.php');
             }
             break;
-
         default:
             $f3->error(404);
     }
@@ -227,14 +231,15 @@ $f3->route('GET|POST /pages/results', function ($f3)
     {
         $memberUser = $_SESSION['primeMember'];
         $userPrime = true;
-        $f3->set('userPrime', $userPrime);
         $f3->set('selectedMember', 'selectedMember');
     } else
     {
         $userPrime = false;
         $memberUser = $_SESSION['memberUser'];
-        $f3->set('userPrime', $userPrime);
+
     }
+    $f3->set('userPrime', $userPrime);
+    echo "<h1>" . $userPrime . "</h1>";
 
     if (isset($_SESSION['indoorActivities']) && isset($_SESSION['outdoorActivities']))
     {
@@ -243,20 +248,24 @@ $f3->route('GET|POST /pages/results', function ($f3)
 
     }
 
-    $fname = exists($memberUser->getFname()) ? $memberUser->getFname() : "FUCKF";
-    $lname = exists($memberUser->getLname()) ? $memberUser->getLname() : "FUCKL";
-    $age = exists($memberUser->getAge()) ? $memberUser->getAge() : "FUCKAGE";
-    $gender = exists($memberUser->getGender()) ? $memberUser->getGender() : "FUCKG";
-    $seek = exists($memberUser->getSeeking()) ? $memberUser->getSeeking() : "FUCKSEEK";
-    $phone = exists($memberUser->getPhone()) ? $memberUser->getPhone() : "FUCKPHONE";
-    $email = exists($memberUser->getEmail()) ? $memberUser->getEmail() : "shitemail";
-    $state = exists($memberUser->getState()) ? $memberUser->getState() : "fuckstaet";
-    $bio = exists($memberUser->getBio()) ? $memberUser->getBio() : "FUCKBIUO";
+    $fname = exists($memberUser->getFname()) ? $memberUser->getFname() : $_SESSION['fname'];
+    $lname = exists($memberUser->getLname()) ? $memberUser->getLname() : $_SESSION['lname'];
+    $age = exists($memberUser->getAge()) ? $memberUser->getAge() : $_SESSION['age'];
+    $gender = exists($memberUser->getGender()) ? $memberUser->getGender() : $_SESSION['gender'];
+    $seek = exists($memberUser->getSeeking()) ? $memberUser->getSeeking() : $_SESSION['genderLook'];
+    $phone = exists($memberUser->getPhone()) ? $memberUser->getPhone() : $_SESSION['phone'];
+    $email = exists($memberUser->getEmail()) ? $memberUser->getEmail() : $_SESSION['email'];
+    $state = exists($memberUser->getState()) ? $memberUser->getState() : $_SESSION['state'];
+    $bio = exists($memberUser->getBio()) ? $memberUser->getBio() : $_SESSION['biography'];
+
+    $genderInitial = strtoupper(substr($gender, 0, 1));
+    $seekInitial = strtoupper(substr($seek, 0, 1));
+    $stateTag = strtoupper(substr($state, 0, 2));
 
 
-    $DBobject->addAccount($fname, $lname, $gender, $seek,
+    $DBobject->addAccount($fname, $lname, $genderInitial, $seekInitial,
         $email, $age, $phone, implode(",", $combineActivities),
-        $bio, $userPrime, $state, NULL);
+        $bio, $userPrime, $stateTag, NULL);
 
     echo "<pre>";
     print_r($memberUser);
