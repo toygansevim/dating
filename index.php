@@ -239,15 +239,14 @@ $f3->route('GET|POST /pages/results', function ($f3)
 
     }
     $f3->set('userPrime', $userPrime);
-    echo "<h1>" . $userPrime . "</h1>";
 
-    if (isset($_SESSION['indoorActivities']) && isset($_SESSION['outdoorActivities']))
+    if (isset($_SESSION['indoorActivities']) && isset($_SESSION['outdoorActivities']) &&
+        $_SESSION['selectedMember'])
     {
         $combineActivities = array_merge($_SESSION['outdoorActivities'], $_SESSION['indoorActivities']);
         $f3->set('combineActivities', $combineActivities);
 
     }
-
     $fname = exists($memberUser->getFname()) ? $memberUser->getFname() : $_SESSION['fname'];
     $lname = exists($memberUser->getLname()) ? $memberUser->getLname() : $_SESSION['lname'];
     $age = exists($memberUser->getAge()) ? $memberUser->getAge() : $_SESSION['age'];
@@ -261,7 +260,6 @@ $f3->route('GET|POST /pages/results', function ($f3)
     $genderInitial = strtoupper(substr($gender, 0, 1));
     $seekInitial = strtoupper(substr($seek, 0, 1));
     $stateTag = strtoupper(substr($state, 0, 2));
-
 
     $DBobject->addAccount($fname, $lname, $genderInitial, $seekInitial,
         $email, $age, $phone, implode(",", $combineActivities),
