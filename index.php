@@ -221,31 +221,20 @@ $f3->route('GET|POST /pages/@pageName', function ($f3, $params)
 $f3->route('GET|POST /pages/results', function ($f3)
 {
     global $DBobject;
+    include "model/sanityCheck.php";
 
     if (isset($_SESSION['selectedMember']))
     {
         $memberUser = $_SESSION['primeMember'];
         $userPrime = true;
         $f3->set('userPrime', $userPrime);
+        $f3->set('selectedMember', 'selectedMember');
     } else
     {
         $userPrime = false;
         $memberUser = $_SESSION['memberUser'];
         $f3->set('userPrime', $userPrime);
     }
-
-    $f3->set('selectedMember', $memberUser);
-
-    $fname = exists($memberUser->getFname()) ? $memberUser->getFname : "FUCK";
-    $lname = exists($memberUser->getLname());
-    $age = exists($memberUser->getAge());
-    $gender = exists($memberUser->getGender());
-    $seek = exists($memberUser->getSeeking());
-    $phone = exists($memberUser->getPhone());
-    $email = exists($memberUser->getEmail());
-    $state = exists($memberUser->getState());
-    $bio = exists($memberUser->getBio());
-
 
     if (isset($_SESSION['indoorActivities']) && isset($_SESSION['outdoorActivities']))
     {
@@ -254,15 +243,24 @@ $f3->route('GET|POST /pages/results', function ($f3)
 
     }
 
-    $genderInitial = strtoupper(substr($gender, 0, 1));
-    $seekInitial = strtoupper(substr($seek, 0, 1));
-    //echo "<h1>" . $seekInitial . "</h1>";
-    $stateTag = strtoupper(substr($state, 0, 2));
+    $fname = exists($memberUser->getFname()) ? $memberUser->getFname() : "FUCKF";
+    $lname = exists($memberUser->getLname()) ? $memberUser->getLname() : "FUCKL";
+    $age = exists($memberUser->getAge()) ? $memberUser->getAge() : "FUCKAGE";
+    $gender = exists($memberUser->getGender()) ? $memberUser->getGender() : "FUCKG";
+    $seek = exists($memberUser->getSeeking()) ? $memberUser->getSeeking() : "FUCKSEEK";
+    $phone = exists($memberUser->getPhone()) ? $memberUser->getPhone() : "FUCKPHONE";
+    $email = exists($memberUser->getEmail()) ? $memberUser->getEmail() : "shitemail";
+    $state = exists($memberUser->getState()) ? $memberUser->getState() : "fuckstaet";
+    $bio = exists($memberUser->getBio()) ? $memberUser->getBio() : "FUCKBIUO";
 
 
-    $DBobject->addAccount($fname, $lname, $genderInitial, $seekInitial,
+    $DBobject->addAccount($fname, $lname, $gender, $seek,
         $email, $age, $phone, implode(",", $combineActivities),
-        $bio, $userPrime, $stateTag, NULL);
+        $bio, $userPrime, $state, NULL);
+
+    echo "<pre>";
+    print_r($memberUser);
+    echo "</pre>";
 
 
     echo Template::instance()->render("pages/results.php");

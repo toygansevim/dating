@@ -48,25 +48,26 @@ ini_set("display_errors", TRUE);
                     <table class="table table-bordered">
                         <tbody>
                         <tr class="">
-                            <td>Name: {{exists($fname) ? $fname : ''}} </td>
+                            <td>Name: {{exists($fname) ? $fname : $_SESSION['fname']}} </td>
                         </tr>
                         <tr>
-                            <td>Gender: {{exists($gender) ? $gender : ''}}</td>
+                            <td>Gender: {{exists($gender) ? $gender :  $_SESSION['lname']}}</td>
                         </tr>
                         <tr>
-                            <td>Age: {{exists($age) ? $age : ''}}</td>
+                            <td>Age: {{exists($age) ? $age :  $_SESSION['age']}}</td>
                         </tr>
                         <tr>
-                            <td>Phone: {{exists($phone) ? $phone : ''}}</td>
+                            <td>Phone: {{exists($phone) ? $phone :  $_SESSION['phone']}}</td>
                         </tr>
                         <tr>
-                            <td>Email: {{exists($email) ? $email : ''}}</td>
+                            <td>Email: {{exists($email) ? $email :  $_SESSION['email']}}</td>
                         </tr>
                         <tr>
-                            <td>State: {{exists($state) ? $state : ''}}</td>
+                            <td>State: {{exists($state) ? $state :  $_SESSION['state']}}</td>
                         </tr>
                         <tr>
-                            <td>Seeking: {{exists($genderLook) ? $genderLook : ''}}</td>
+                            <td>Seeking: {{exists($genderLook) ? $genderLook :
+                                $_SESSION['genderLook']}}</td>
                         </tr>
                         <tr>
                             <check if="{{@selectedMember == 'selectedMember' }}">
@@ -90,7 +91,7 @@ ini_set("display_errors", TRUE);
                     <div class="container justify-content-center text-center">
                         <h3>Biography</h3>
                         <p>
-                            {{exists($biography) ? $biography : ''}}
+                            {{exists($biography) ? $biography :  $_SESSION['biography']}}
                         </p>
                     </div>
                 </div>
